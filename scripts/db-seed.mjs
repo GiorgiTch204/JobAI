@@ -12,12 +12,13 @@ loadEnv();
 
 const { getDb } = await import("../lib/db/client.js");
 const { hashPassword } = await import("../lib/auth/password.js");
-const { createUser, findUserByEmail, recordLogin } = await import("../lib/db/users.repo.js");
-const { createResume, updateResume } = await import("../lib/db/resumes.repo.js");
+const { createUser, findUserByEmail, recordLogin } =
+  await import("../lib/db/users.repo.js");
+const { createResume, updateResume } =
+  await import("../lib/db/resumes.repo.js");
 const { createJob } = await import("../lib/db/jobs.repo.js");
-const { createApplication, updateApplicationStatus } = await import(
-  "../lib/db/applications.repo.js"
-);
+const { createApplication, updateApplicationStatus } =
+  await import("../lib/db/applications.repo.js");
 const { saveJob } = await import("../lib/db/saved-jobs.repo.js");
 const { logActivity } = await import("../lib/db/activity.repo.js");
 const { createSession } = await import("../lib/db/sessions.repo.js");
@@ -80,8 +81,18 @@ const people = [
       summary:
         "Full-stack developer finishing a computer science degree in Tbilisi. I build Next.js interfaces and ASP.NET MVC services for government teams, and I care about accessible markup, measurable performance work and clean API boundaries.",
       skills: [
-        "React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "Node.js",
-        "REST API", "C#", "ASP.NET MVC", "SQL Server", "Git", "Figma",
+        "React",
+        "Next.js",
+        "JavaScript",
+        "TypeScript",
+        "Tailwind CSS",
+        "Node.js",
+        "REST API",
+        "C#",
+        "ASP.NET MVC",
+        "SQL Server",
+        "Git",
+        "Figma",
       ],
       experience: [
         {
@@ -139,7 +150,12 @@ const people = [
         { id: "lang_3", name: "Russian", level: "Intermediate" },
       ],
       certifications: [
-        { id: "cert_1", name: "Google Cloud Digital Leader", issuer: "Google Cloud", year: "2025" },
+        {
+          id: "cert_1",
+          name: "Google Cloud Digital Leader",
+          issuer: "Google Cloud",
+          year: "2025",
+        },
       ],
     },
   },
@@ -154,7 +170,16 @@ const people = [
       title: "Frontend CV",
       summary:
         "Frontend developer with three years building design systems and marketing sites. I work in React and TypeScript and run the accessibility review on every release.",
-      skills: ["React", "TypeScript", "CSS", "Storybook", "Jest", "Accessibility", "Figma", "Vite"],
+      skills: [
+        "React",
+        "TypeScript",
+        "CSS",
+        "Storybook",
+        "Jest",
+        "Accessibility",
+        "Figma",
+        "Vite",
+      ],
       experience: [
         {
           id: "exp_1",
@@ -198,7 +223,16 @@ const people = [
       title: "Backend CV",
       summary:
         "Backend engineer working on payment services. I write Node.js and Go, and I own the on-call rota for three production services.",
-      skills: ["Node.js", "Go", "PostgreSQL", "Docker", "Kubernetes", "REST API", "Redis", "AWS"],
+      skills: [
+        "Node.js",
+        "Go",
+        "PostgreSQL",
+        "Docker",
+        "Kubernetes",
+        "REST API",
+        "Redis",
+        "AWS",
+      ],
       experience: [
         {
           id: "exp_1",
@@ -237,7 +271,8 @@ const people = [
     location: "Kutaisi, Georgia",
     resume: {
       title: "First CV",
-      summary: "Career switcher from accounting, six months into learning web development.",
+      summary:
+        "Career switcher from accounting, six months into learning web development.",
       skills: ["HTML", "CSS", "JavaScript"],
       experience: [],
       education: [
@@ -280,7 +315,11 @@ const jobSeeds = [
       "Experience consuming REST APIs and handling auth flows",
       "Georgian and English, written and spoken",
     ],
-    benefits: ["Private health insurance", "Hybrid, 2 days in office", "Conference budget"],
+    benefits: [
+      "Private health insurance",
+      "Hybrid, 2 days in office",
+      "Conference budget",
+    ],
     tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "REST API"],
   },
   {
@@ -382,7 +421,11 @@ const jobSeeds = [
       "Basic JavaScript and willingness to learn Next.js",
       "Georgian language",
     ],
-    benefits: ["Paid internship", "Possible full-time offer", "Flexible exam schedule"],
+    benefits: [
+      "Paid internship",
+      "Possible full-time offer",
+      "Flexible exam schedule",
+    ],
     tags: ["JavaScript", "Next.js", "HTML", "CSS", "Git"],
   },
   {
@@ -404,7 +447,14 @@ const jobSeeds = [
       "Storybook or equivalent documentation tooling",
     ],
     benefits: ["Hourly rate", "Asynchronous team", "Contract extension likely"],
-    tags: ["React", "TypeScript", "Storybook", "Accessibility", "Design System", "CSS"],
+    tags: [
+      "React",
+      "TypeScript",
+      "Storybook",
+      "Accessibility",
+      "Design System",
+      "CSS",
+    ],
   },
   {
     title: "Data analyst (SQL + Python)",
@@ -499,7 +549,11 @@ const jobSeeds = [
     salaryCurrency: "GEL",
     description:
       "Twenty hours a week keeping six news sites fast and online, plus building landing pages for campaigns.",
-    requirements: ["PHP and WordPress themes", "Basic JavaScript", "Page speed basics"],
+    requirements: [
+      "PHP and WordPress themes",
+      "Basic JavaScript",
+      "Page speed basics",
+    ],
     benefits: ["Part time", "Remote", "Flexible hours"],
     tags: ["WordPress", "PHP", "JavaScript", "CSS"],
   },
@@ -522,7 +576,14 @@ const jobSeeds = [
       "Comfortable reading papers and shipping from them",
     ],
     benefits: ["Research time", "Conference travel", "Hybrid"],
-    tags: ["Python", "PyTorch", "NLP", "Machine Learning", "FastAPI", "ChromaDB"],
+    tags: [
+      "Python",
+      "PyTorch",
+      "NLP",
+      "Machine Learning",
+      "FastAPI",
+      "ChromaDB",
+    ],
   },
   {
     title: "Technical support engineer",
@@ -536,7 +597,11 @@ const jobSeeds = [
     salaryCurrency: "GEL",
     description:
       "First line of support for our logistics software. You will debug customer issues, write the fix when it is small, and hand over the rest with a clear reproduction.",
-    requirements: ["SQL basics", "Clear written Georgian and English", "Patience on the phone"],
+    requirements: [
+      "SQL basics",
+      "Clear written Georgian and English",
+      "Patience on the phone",
+    ],
     benefits: ["Health insurance", "Clear promotion path"],
     tags: ["SQL", "Support", "Debugging", "Windows"],
   },
@@ -587,13 +652,12 @@ const jobs = jobSeeds.map((seed) => createJob(seed, admin.id));
 
 // Back-date the postings so the job board does not show 16 identical timestamps.
 jobs.forEach((job, index) => {
-  const created = new Date(Date.now() - (index * 34 + 6) * 3_600_000).toISOString();
-  db.prepare("UPDATE jobs SET created_at = ?, updated_at = ?, views = ? WHERE id = ?").run(
-    created,
-    created,
-    Math.floor(Math.random() * 180) + 12,
-    job.id,
-  );
+  const created = new Date(
+    Date.now() - (index * 34 + 6) * 3_600_000,
+  ).toISOString();
+  db.prepare(
+    "UPDATE jobs SET created_at = ?, updated_at = ?, views = ? WHERE id = ?",
+  ).run(created, created, Math.floor(Math.random() * 180) + 12, job.id);
 });
 
 logActivity({
@@ -627,8 +691,13 @@ for (const [index, person] of people.entries()) {
   }
 
   // Back-date signups across the last two weeks for the admin charts.
-  const created = new Date(Date.now() - (index * 3 + 1) * 86_400_000).toISOString();
-  db.prepare("UPDATE users SET created_at = ? WHERE id = ?").run(created, user.id);
+  const created = new Date(
+    Date.now() - (index * 3 + 1) * 86_400_000,
+  ).toISOString();
+  db.prepare("UPDATE users SET created_at = ? WHERE id = ?").run(
+    created,
+    user.id,
+  );
 
   const document = {
     ...person.resume,
@@ -686,15 +755,35 @@ for (const [index, person] of people.entries()) {
 const openJobs = jobs.filter((job) => (job.status || "OPEN") === "OPEN");
 
 const plan = [
-  { member: 0, job: 0, status: "INTERVIEW", note: "Technical interview booked for Thursday." },
+  {
+    member: 0,
+    job: 0,
+    status: "INTERVIEW",
+    note: "Technical interview booked for Thursday.",
+  },
   { member: 0, job: 1, status: "IN_REVIEW", note: "" },
   { member: 0, job: 5, status: "SUBMITTED", note: "" },
-  { member: 1, job: 6, status: "OFFER", note: "Offer sent, awaiting signature." },
-  { member: 1, job: 0, status: "REJECTED", note: "Looking for more TypeScript depth." },
+  {
+    member: 1,
+    job: 6,
+    status: "OFFER",
+    note: "Offer sent, awaiting signature.",
+  },
+  {
+    member: 1,
+    job: 0,
+    status: "REJECTED",
+    note: "Looking for more TypeScript depth.",
+  },
   { member: 2, job: 3, status: "IN_REVIEW", note: "" },
   { member: 2, job: 8, status: "SUBMITTED", note: "" },
   { member: 3, job: 2, status: "SUBMITTED", note: "" },
-  { member: 3, job: 5, status: "REJECTED", note: "Needs more JavaScript practice first." },
+  {
+    member: 3,
+    job: 5,
+    status: "REJECTED",
+    note: "Needs more JavaScript practice first.",
+  },
 ];
 
 for (const [index, item] of plan.entries()) {
@@ -717,16 +806,15 @@ for (const [index, item] of plan.entries()) {
     actorName: member.user.name,
   });
 
-  const created = new Date(Date.now() - (index * 19 + 3) * 3_600_000).toISOString();
-  db.prepare("UPDATE applications SET created_at = ?, updated_at = ? WHERE id = ?").run(
-    created,
-    created,
-    application.id,
-  );
-  db.prepare("UPDATE application_events SET created_at = ? WHERE application_id = ?").run(
-    created,
-    application.id,
-  );
+  const created = new Date(
+    Date.now() - (index * 19 + 3) * 3_600_000,
+  ).toISOString();
+  db.prepare(
+    "UPDATE applications SET created_at = ?, updated_at = ? WHERE id = ?",
+  ).run(created, created, application.id);
+  db.prepare(
+    "UPDATE application_events SET created_at = ? WHERE application_id = ?",
+  ).run(created, application.id);
 
   logActivity({
     userId: member.user.id,
@@ -786,7 +874,8 @@ logActivity({
 /* report                                                                     */
 /* -------------------------------------------------------------------------- */
 
-const count = (table) => db.prepare(`SELECT COUNT(*) AS n FROM ${table}`).get().n;
+const count = (table) =>
+  db.prepare(`SELECT COUNT(*) AS n FROM ${table}`).get().n;
 
 console.log(`
 Seed complete
