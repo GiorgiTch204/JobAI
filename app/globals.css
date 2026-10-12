@@ -1,0 +1,597 @@
+@import "tailwindcss";
+
+/* Self-hosted type: no Google Fonts request, works offline and behind a proxy. */
+@import "@fontsource-variable/archivo/index.css";
+@import "@fontsource/archivo-black/400.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+/* ==========================================================================
+   JobAI design tokens
+
+   The product is a résumé read by a machine, so the interface is built like
+   paper under a scanner: a cool paper ground, navy ink, hairline rules, and
+   one highlighter colour that only ever marks a keyword match, a score, or
+   the active thing.
+
+   Runtime values live on :root (so the theme can switch), and @theme maps
+   them onto Tailwind's colour names — that way `bg-surface`, `text-ink-2`
+   and `border-rule` are real Tailwind utilities with no hand-written
+   duplicates to collide with.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  --paper: #eceff3;
+  --paper-2: #e3e7ec;
+  --surface: #ffffff;
+  --surface-2: #f6f8fa;
+  --surface-3: #eef1f5;
+
+  --ink: #0d1623;
+  --ink-2: #44515f;
+  --ink-3: #6f7d8c;
+
+  --rule: #d5dbe3;
+  --rule-strong: #b9c2cd;
+
+  /* The application shell stays ink-dark in both themes. */
+  --shell: #0d1623;
+  --shell-2: #131f2e;
+  --shell-ink: #e7edf4;
+  --shell-ink-2: #93a3b5;
+  --shell-rule: #1f2b3b;
+
+  --mark: #d4f44c;
+  --mark-soft: #f0fbc4;
+  --mark-deep: #8ea510;
+  --mark-ink: #1b2410;
+
+  --positive: #167d57;
+  --positive-soft: #d8f0e6;
+  --warning: #a8630a;
+  --warning-soft: #fbeed6;
+  --danger: #b02a1f;
+  --danger-soft: #fae0dc;
+  --info: #2a5aa8;
+  --info-soft: #dce7f8;
+
+  --sheet-shadow: 0 1px 2px rgb(13 22 35 / 0.06), 0 18px 48px -24px rgb(13 22 35 / 0.28);
+  --pop-shadow: 0 2px 4px rgb(13 22 35 / 0.08), 0 24px 56px -28px rgb(13 22 35 / 0.4);
+
+  /* Chart series. Two hues, fixed order, validated for colour-vision
+     deficiency and for contrast against the chart surface in this mode.
+     Light: ΔE 34 normal / 32 protan, both ≥ 3:1 on white. */
+  --chart-1: #7f9311;
+  --chart-2: #2a5aa8;
+  --chart-grid: #e2e7ec;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #0a0f16;
+  --paper-2: #0d141d;
+  --surface: #131b25;
+  --surface-2: #18212d;
+  --surface-3: #1e2834;
+
+  --ink: #e9eef4;
+  --ink-2: #a7b4c2;
+  --ink-3: #7b899c;
+
+  --rule: #263140;
+  --rule-strong: #38465a;
+
+  --shell: #070b11;
+  --shell-2: #0d141d;
+  --shell-ink: #e9eef4;
+  --shell-ink-2: #8b9aad;
+  --shell-rule: #1b2532;
+
+  --mark-soft: #2b3410;
+  --mark-deep: #c3e52e;
+
+  --positive-soft: #0d2b22;
+  --warning-soft: #2e2009;
+  --danger-soft: #30120e;
+  --info-soft: #11203a;
+
+  --sheet-shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 24px 56px -30px rgb(0 0 0 / 0.85);
+  --pop-shadow: 0 2px 6px rgb(0 0 0 / 0.5), 0 28px 60px -28px rgb(0 0 0 / 0.9);
+
+  /* Dark mode is stepped separately, not flipped: these pass the same checks
+     against the dark chart surface (#131b25). */
+  --chart-1: #86a316;
+  --chart-2: #5080c9;
+  --chart-grid: #222d3b;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+
+  --color-shell: var(--shell);
+  --color-shell-2: var(--shell-2);
+  --color-shell-ink: var(--shell-ink);
+  --color-shell-ink-2: var(--shell-ink-2);
+  --color-shell-rule: var(--shell-rule);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-grid: var(--chart-grid);
+
+  --color-mark: var(--mark);
+  --color-mark-soft: var(--mark-soft);
+  --color-mark-deep: var(--mark-deep);
+  --color-mark-ink: var(--mark-ink);
+
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  --font-sans: "Archivo Variable", "Archivo", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-display: "Archivo Black", "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --radius-sheet: 3px;
+  --radius-field: 8px;
+  --radius-panel: 14px;
+
+  --shadow-sheet: var(--sheet-shadow);
+  --shadow-pop: var(--pop-shadow);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--rule);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--mark);
+    color: var(--mark-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--mark-deep);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--ink-3);
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+@utility mark-hit {
+  background-image: linear-gradient(
+    to top,
+    var(--mark) 0%,
+    var(--mark) 42%,
+    transparent 42%
+  );
+  padding-inline: 0.12em;
+  border-radius: 1px;
+  color: var(--ink);
+}
+
+@utility paper-grid {
+  background-image: linear-gradient(var(--rule) 1px, transparent 1px);
+  background-size: 100% 2rem;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) transparent;
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Boot loader — the one piece of non-interactive motion in the product.
+
+   "JobAI" is set in the display face, outlined in a ghost ink, and a
+   highlighter sweep fills it from left to right. The fill is driven by the
+   --fill custom property so JavaScript can tie it to real readiness, and the
+   CSS keyframes cover the case where JavaScript never runs.
+   ========================================================================== */
+
+@property --fill {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+#jobai-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background-color: var(--shell);
+  transition: opacity 420ms var(--ease-out-quint), visibility 420ms;
+}
+
+#jobai-boot[data-state="done"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.boot-stack {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+  width: min(30rem, 100%);
+  padding-inline: 1.5rem;
+  animation: boot-fill 1500ms var(--ease-out-quint) forwards;
+}
+
+.boot-word {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 14vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  user-select: none;
+}
+
+.boot-word__ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in oklab, var(--shell-ink) 30%, transparent);
+}
+
+.boot-word__fill {
+  position: absolute;
+  inset: 0;
+  color: var(--mark);
+  clip-path: inset(0 calc(100% - var(--fill)) 0 0);
+}
+
+.boot-word__nib {
+  position: absolute;
+  top: -8%;
+  bottom: -8%;
+  /* `left` is a percentage of the word's width, so the nib rides the edge of
+     the fill. A transform would translate by its own 2px width instead. */
+  left: var(--fill);
+  width: 2px;
+  margin-left: -1px;
+  background-color: var(--mark);
+  box-shadow: 0 0 22px 6px color-mix(in oklab, var(--mark) 45%, transparent);
+  opacity: 0.95;
+  transition: opacity 260ms linear;
+}
+
+.boot-meta {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--shell-ink-2);
+}
+
+.boot-rule {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background-color: var(--shell-rule);
+  overflow: hidden;
+}
+
+.boot-rule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--mark);
+  transform-origin: left center;
+  transform: scaleX(calc(var(--fill) / 100%));
+}
+
+@keyframes boot-fill {
+  from {
+    --fill: 0%;
+  }
+  to {
+    --fill: 100%;
+  }
+}
+
+/* Route-change progress: the same highlighter, 2px tall. */
+.route-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.route-progress__bar {
+  height: 100%;
+  background-color: var(--mark-deep);
+  transition: width 240ms var(--ease-out-quint), opacity 300ms linear;
+}
+
+/* ==========================================================================
+   Motion used by content
+   ========================================================================== */
+
+@keyframes scan-sweep {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
+
+.scan-line {
+  animation: scan-sweep 2600ms var(--ease-out-quint) 500ms both;
+}
+
+@keyframes mark-in {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+.mark-in {
+  background-image: linear-gradient(
+    to top,
+    var(--mark) 0%,
+    var(--mark) 42%,
+    transparent 42%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: mark-in 520ms var(--ease-out-quint) both;
+  padding-inline: 0.12em;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 500ms var(--ease-out-quint) both;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pop-in {
+  animation: pop-in 150ms var(--ease-out-quint) both;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 760ms linear infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--surface-3);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--surface) 70%, transparent),
+    transparent
+  );
+  animation: shimmer 1600ms infinite;
+}
+
+/* ==========================================================================
+   Reduced motion — keep the information, drop the movement.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .boot-stack {
+    --fill: 100%;
+  }
+
+  .boot-word__nib {
+    display: none;
+  }
+
+  .skeleton::after {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Print — the CV preview is the page that gets printed.
+   ========================================================================== */
+
+@media print {
+  @page {
+    margin: 14mm;
+    size: A4;
+  }
+
+  :root,
+  :root[data-theme="dark"] {
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --paper: #ffffff;
+    --ink: #000000;
+    --ink-2: #2a2a2a;
+    --ink-3: #4a4a4a;
+    --rule: #c8c8c8;
+    --sheet-shadow: none;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  #jobai-boot,
+  .route-progress {
+    display: none !important;
+  }
+
+  .print-sheet {
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+}
+
+/* Repeat visits inside the same tab skip the boot sequence entirely; the
+   inline head script sets this attribute before first paint. */
+html[data-boot="skip"] #jobai-boot {
+  display: none;
+}
+
+/* Safety net: if JavaScript never runs, the overlay still clears itself. */
+#jobai-boot[data-state="running"] {
+  animation: boot-dismiss 500ms var(--ease-out-quint) 2000ms forwards;
+}
+
+@keyframes boot-dismiss {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
