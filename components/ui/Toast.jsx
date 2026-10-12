@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { CircleAlert, CircleCheck, Info, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -48,8 +54,10 @@ export function ToastProvider({ children }) {
     () => ({
       push,
       dismiss,
-      success: (message, options) => push(message, { ...options, tone: "success" }),
-      error: (message, options) => push(message, { ...options, tone: "error", duration: 6000 }),
+      success: (message, options) =>
+        push(message, { ...options, tone: "success" }),
+      error: (message, options) =>
+        push(message, { ...options, tone: "error", duration: 6000 }),
       info: (message, options) => push(message, { ...options, tone: "info" }),
     }),
     [push, dismiss],
@@ -74,7 +82,9 @@ export function ToastProvider({ children }) {
               )}
             >
               <Icon className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-              <p className="flex-1 text-[0.8125rem] leading-snug">{toast.message}</p>
+              <p className="flex-1 text-[0.8125rem] leading-snug">
+                {toast.message}
+              </p>
               <button
                 type="button"
                 onClick={() => dismiss(toast.id)}

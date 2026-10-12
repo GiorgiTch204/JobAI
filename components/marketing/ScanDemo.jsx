@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
  */
 
 const LINES = [
-  { text: "Luka Danelia", className: "font-display text-[0.9375rem] text-ink" },
+  { text: "Giorgi Tcheishvili", className: "font-display text-[0.9375rem] text-ink" },
   { text: "Full-stack web developer · Tbilisi, Georgia", className: "text-[0.6875rem] text-ink-3" },
   { divider: true },
   { label: "Summary" },
