@@ -16,18 +16,25 @@ export function MatchReport({ match, resumeTitle }) {
         <div>
           <p className="text-[0.875rem] font-semibold text-ink">Your match</p>
           {resumeTitle ? (
-            <p className="mt-0.5 text-[0.75rem] text-ink-3">against “{resumeTitle}”</p>
+            <p className="mt-0.5 text-[0.75rem] text-ink-3">
+              against “{resumeTitle}”
+            </p>
           ) : null}
         </div>
         <MatchBadge score={match.score} />
       </div>
 
       <Meter value={match.score} tone={matchTone(match.score)} size="lg" />
-      <p className="text-[0.8125rem] leading-relaxed text-ink-2">{match.verdict}</p>
+      <p className="text-[0.8125rem] leading-relaxed text-ink-2">
+        {match.verdict}
+      </p>
 
       <dl className="grid gap-2 border-t border-rule pt-3">
         {match.signals.map((signal) => (
-          <div key={signal.id} className="flex items-baseline justify-between gap-3">
+          <div
+            key={signal.id}
+            className="flex items-baseline justify-between gap-3"
+          >
             <dt className="text-[0.75rem] text-ink-3">{signal.label}</dt>
             <dd className="tabular font-mono text-[0.6875rem] text-ink-2">
               {signal.points}/{signal.max}
@@ -60,8 +67,8 @@ export function MatchReport({ match, resumeTitle }) {
             ))}
           </div>
           <p className="mt-2.5 text-[0.75rem] leading-relaxed text-ink-3">
-            Add the ones you can honestly claim to your skills block or an achievement line, then
-            re-score.
+            Add the ones you can honestly claim to your skills block or an
+            achievement line, then re-score.
           </p>
         </div>
       ) : null}

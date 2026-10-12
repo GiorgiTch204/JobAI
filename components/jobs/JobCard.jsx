@@ -51,7 +51,10 @@ export function JobCard({ job, signedIn = false, onSavedChange }) {
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="text-[1.0625rem] font-semibold leading-snug text-ink">
-              <Link href={`/jobs/${job.id}`} className="hover:underline hover:decoration-[var(--mark-deep)] hover:decoration-2 hover:underline-offset-4">
+              <Link
+                href={`/jobs/${job.id}`}
+                className="hover:underline hover:decoration-[var(--mark-deep)] hover:decoration-2 hover:underline-offset-4"
+              >
                 {job.title}
               </Link>
             </h3>
@@ -66,12 +69,18 @@ export function JobCard({ job, signedIn = false, onSavedChange }) {
               disabled={pending}
               className={cn(
                 "grid size-8 place-items-center rounded-[var(--radius-field)] transition-colors",
-                saved ? "text-[var(--mark-deep)]" : "text-ink-3 hover:bg-surface-2 hover:text-ink-2",
+                saved
+                  ? "text-[var(--mark-deep)]"
+                  : "text-ink-3 hover:bg-surface-2 hover:text-ink-2",
               )}
               aria-label={saved ? "Remove from saved jobs" : "Save this job"}
               aria-pressed={saved}
             >
-              {saved ? <BookmarkCheck className="size-4" /> : <Bookmark className="size-4" />}
+              {saved ? (
+                <BookmarkCheck className="size-4" />
+              ) : (
+                <Bookmark className="size-4" />
+              )}
             </button>
           </div>
         </div>
@@ -111,7 +120,11 @@ export function JobCard({ job, signedIn = false, onSavedChange }) {
                     {word}
                   </Keyword>
                 )),
-                ...misses.slice(0, 4).map((word) => <Keyword key={`miss-${word}`}>{word}</Keyword>),
+                ...misses
+                  .slice(0, 4)
+                  .map((word) => (
+                    <Keyword key={`miss-${word}`}>{word}</Keyword>
+                  )),
               ]}
         </div>
       </div>

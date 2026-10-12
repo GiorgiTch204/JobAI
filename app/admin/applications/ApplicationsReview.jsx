@@ -117,7 +117,11 @@ export function ApplicationsReview({
       {job ? (
         <div className="mb-4 flex items-center gap-2">
           <Badge tone="mark">filtered to one posting</Badge>
-          <Button variant="ghost" size="sm" onClick={() => apply({ jobId: "" })}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => apply({ jobId: "" })}
+          >
             <X className="size-3.5" aria-hidden="true" />
             Show all applications
           </Button>
@@ -158,7 +162,11 @@ export function ApplicationsReview({
           icon={Send}
           title="No applications here"
           description="Nothing matches those filters yet."
-          action={{ label: "Clear filters", href: "/admin/applications", variant: "outline" }}
+          action={{
+            label: "Clear filters",
+            href: "/admin/applications",
+            variant: "outline",
+          }}
         />
       ) : (
         <>
@@ -212,14 +220,18 @@ export function ApplicationsReview({
                     <Td className="hidden sm:table-cell">
                       <MatchBadge score={application.matchScore} size="sm" />
                     </Td>
-                    <Td className="tabular hidden lg:table-cell">{application.atsScore}</Td>
+                    <Td className="tabular hidden lg:table-cell">
+                      {application.atsScore}
+                    </Td>
                     <Td className="hidden whitespace-nowrap text-[0.75rem] md:table-cell">
                       {formatRelative(application.createdAt)}
                     </Td>
                     <Td>
                       <Select
                         value={application.status}
-                        onChange={(event) => quickStatus(application, event.target.value)}
+                        onChange={(event) =>
+                          quickStatus(application, event.target.value)
+                        }
                         disabled={pending === application.id}
                         aria-label={`Status for ${application.user.name}`}
                         className="h-8 w-32 text-[0.75rem]"
@@ -232,7 +244,11 @@ export function ApplicationsReview({
                       </Select>
                     </Td>
                     <Td className="text-right">
-                      <Button variant="quiet" size="sm" onClick={() => openReview(application)}>
+                      <Button
+                        variant="quiet"
+                        size="sm"
+                        onClick={() => openReview(application)}
+                      >
                         <FileText className="size-3.5" aria-hidden="true" />
                         Open CV
                       </Button>
@@ -259,7 +275,9 @@ export function ApplicationsReview({
       <Modal
         open={Boolean(reviewing)}
         onClose={() => setReviewing(null)}
-        title={reviewing ? `${reviewing.user.name} — ${reviewing.job.title}` : ""}
+        title={
+          reviewing ? `${reviewing.user.name} — ${reviewing.job.title}` : ""
+        }
         description={
           reviewing
             ? `Applied ${formatDate(reviewing.createdAt, { withTime: true })} · ${
@@ -270,10 +288,18 @@ export function ApplicationsReview({
         size="xl"
         footer={
           <>
-            <Button variant="quiet" size="sm" onClick={() => setReviewing(null)}>
+            <Button
+              variant="quiet"
+              size="sm"
+              onClick={() => setReviewing(null)}
+            >
               Close
             </Button>
-            <Button size="sm" onClick={saveReview} loading={pending === reviewing?.id}>
+            <Button
+              size="sm"
+              onClick={saveReview}
+              loading={pending === reviewing?.id}
+            >
               Save decision
             </Button>
           </>
@@ -284,7 +310,10 @@ export function ApplicationsReview({
             <div>
               {reviewing.resumeSnapshot ? (
                 <div className="rounded-[var(--radius-sheet)] border border-rule">
-                  <ResumeSheet resume={reviewing.resumeSnapshot} scale="compact" />
+                  <ResumeSheet
+                    resume={reviewing.resumeSnapshot}
+                    scale="compact"
+                  />
                 </div>
               ) : (
                 <PanelBody>
@@ -298,7 +327,9 @@ export function ApplicationsReview({
             <div className="grid gap-4">
               {reviewing.coverLetter ? (
                 <div className="rounded-[var(--radius-field)] border border-rule bg-surface-2 p-3.5">
-                  <p className="text-[0.75rem] text-ink-3">What the applicant wrote</p>
+                  <p className="text-[0.75rem] text-ink-3">
+                    What the applicant wrote
+                  </p>
                   <p className="mt-1.5 whitespace-pre-line text-[0.8125rem] leading-relaxed text-ink-2">
                     {reviewing.coverLetter}
                   </p>
@@ -306,7 +337,10 @@ export function ApplicationsReview({
               ) : null}
 
               <Field label="Decision">
-                <Select value={status} onChange={(event) => setStatus(event.target.value)}>
+                <Select
+                  value={status}
+                  onChange={(event) => setStatus(event.target.value)}
+                >
                   {APPLICATION_STATUSES.map((value) => (
                     <option key={value} value={value}>
                       {LABELS.applicationStatus[value]}
@@ -315,10 +349,7 @@ export function ApplicationsReview({
                 </Select>
               </Field>
 
-              <Field
-                label="Note"
-                hint="The applicant can read this"
-              >
+              <Field label="Note" hint="The applicant can read this">
                 <Textarea
                   rows={4}
                   value={note}
@@ -332,7 +363,10 @@ export function ApplicationsReview({
                 <Row label="Applicant" value={reviewing.user.name} />
                 <Row label="Email" value={reviewing.user.email} mono />
                 <Row label="Location" value={reviewing.user.location || "—"} />
-                <Row label="Current status" value={LABELS.applicationStatus[reviewing.status]} />
+                <Row
+                  label="Current status"
+                  value={LABELS.applicationStatus[reviewing.status]}
+                />
                 <Row
                   label="Last change"
                   value={formatDate(reviewing.updatedAt, { withTime: true })}
@@ -359,7 +393,13 @@ function Row({ label, value, mono = false }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
       <dt className="text-ink-3">{label}</dt>
-      <dd className={mono ? "break-all font-mono text-[0.6875rem] text-ink-2" : "text-ink-2"}>
+      <dd
+        className={
+          mono
+            ? "break-all font-mono text-[0.6875rem] text-ink-2"
+            : "text-ink-2"
+        }
+      >
         {value}
       </dd>
     </div>

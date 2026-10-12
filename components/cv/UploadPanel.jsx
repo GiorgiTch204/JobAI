@@ -76,7 +76,10 @@ export function UploadPanel({ hasResumes }) {
   const save = async () => {
     setStage("saving");
     try {
-      const data = await post("/api/resumes", { ...result.resume, source: "upload" });
+      const data = await post("/api/resumes", {
+        ...result.resume,
+        source: "upload",
+      });
       toast.success(`Imported. ATS score ${data.report.score}.`);
       router.push(`/cv?id=${data.resume.id}`);
       router.refresh();
@@ -132,7 +135,9 @@ export function UploadPanel({ hasResumes }) {
 
               {diagnostics.missing.length ? (
                 <div>
-                  <p className="text-[0.75rem] text-ink-3">Not found in the file</p>
+                  <p className="text-[0.75rem] text-ink-3">
+                    Not found in the file
+                  </p>
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {diagnostics.missing.map((key) => (
                       <span
@@ -144,7 +149,8 @@ export function UploadPanel({ hasResumes }) {
                     ))}
                   </div>
                   <p className="mt-2 text-[0.75rem] leading-relaxed text-ink-3">
-                    These were left empty rather than guessed. Fill them in after you import.
+                    These were left empty rather than guessed. Fill them in
+                    after you import.
                   </p>
                 </div>
               ) : null}
@@ -153,7 +159,10 @@ export function UploadPanel({ hasResumes }) {
                 <Row label="Roles found" value={resume.experience.length} />
                 <Row label="Achievement lines" value={diagnostics.bullets} />
                 <Row label="Skills found" value={resume.skills.length} />
-                <Row label="Education entries" value={resume.education.length} />
+                <Row
+                  label="Education entries"
+                  value={resume.education.length}
+                />
                 <Row
                   label="Sections detected"
                   value={diagnostics.sectionsFound.join(", ") || "none"}
@@ -201,7 +210,11 @@ export function UploadPanel({ hasResumes }) {
       <Panel>
         <PanelBody className="p-5 sm:p-6">
           {error ? (
-            <Alert tone="danger" className="mb-4" title="That file did not work">
+            <Alert
+              tone="danger"
+              className="mb-4"
+              title="That file did not work"
+            >
               {error}
             </Alert>
           ) : null}
@@ -226,8 +239,13 @@ export function UploadPanel({ hasResumes }) {
           >
             {stage === "reading" ? (
               <>
-                <LoaderCircle className="size-7 spin text-[var(--mark-deep)]" aria-hidden="true" />
-                <p className="text-[0.9375rem] font-medium text-ink">Reading {fileName}</p>
+                <LoaderCircle
+                  className="size-7 spin text-[var(--mark-deep)]"
+                  aria-hidden="true"
+                />
+                <p className="text-[0.9375rem] font-medium text-ink">
+                  Reading {fileName}
+                </p>
                 <p className="text-[0.8125rem] text-ink-3">
                   Extracting the text, then looking for the sections.
                 </p>
@@ -240,7 +258,9 @@ export function UploadPanel({ hasResumes }) {
                 <p className="text-[0.9375rem] font-medium text-ink">
                   Drop your CV here, or choose a file
                 </p>
-                <p className="text-[0.8125rem] text-ink-3">PDF, DOCX or plain text, up to 8 MB</p>
+                <p className="text-[0.8125rem] text-ink-3">
+                  PDF, DOCX or plain text, up to 8 MB
+                </p>
 
                 <input
                   ref={inputRef}
@@ -263,13 +283,20 @@ export function UploadPanel({ hasResumes }) {
 
           <div className="mt-5 grid gap-2.5 text-[0.8125rem] leading-relaxed text-ink-2">
             <p className="flex gap-2">
-              <TriangleAlert className="mt-0.5 size-3.5 shrink-0 text-warning" aria-hidden="true" />
-              A scanned CV is an image, so there is no text to read. Export a text-based PDF from
-              Word or Google Docs instead.
+              <TriangleAlert
+                className="mt-0.5 size-3.5 shrink-0 text-warning"
+                aria-hidden="true"
+              />
+              A scanned CV is an image, so there is no text to read. Export a
+              text-based PDF from Word or Google Docs instead.
             </p>
             <p className="flex gap-2">
-              <FileText className="mt-0.5 size-3.5 shrink-0 text-ink-3" aria-hidden="true" />
-              Nothing is saved until you have seen what was read and pressed import.
+              <FileText
+                className="mt-0.5 size-3.5 shrink-0 text-ink-3"
+                aria-hidden="true"
+              />
+              Nothing is saved until you have seen what was read and pressed
+              import.
             </p>
           </div>
         </PanelBody>
@@ -279,8 +306,8 @@ export function UploadPanel({ hasResumes }) {
         <PanelHeader title="Or start from an empty document" />
         <PanelBody className="grid gap-3">
           <p className="text-[0.8125rem] leading-relaxed text-ink-2">
-            The builder works the same either way, and the live score tells you what each section
-            still needs.
+            The builder works the same either way, and the live score tells you
+            what each section still needs.
           </p>
           <Button href="/cv" variant="outline">
             Open the builder

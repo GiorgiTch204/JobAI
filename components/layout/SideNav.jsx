@@ -9,7 +9,8 @@ import { Logo } from "@/components/brand/Logo";
 import { NAV_ICONS } from "./icon-map";
 
 function isActive(pathname, href) {
-  if (href === "/admin" || href === "/dashboard" || href === "/cv") return pathname === href;
+  if (href === "/admin" || href === "/dashboard" || href === "/cv")
+    return pathname === href;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -33,7 +34,10 @@ export function SideNav({ groups, footer, onNavigate, variant = "member" }) {
         ) : null}
       </div>
 
-      <nav className="scrollbar-thin flex-1 overflow-y-auto px-2.5 py-4" aria-label="Main">
+      <nav
+        className="scrollbar-thin flex-1 overflow-y-auto px-2.5 py-4"
+        aria-label="Main"
+      >
         {groups.map((group) => (
           <div key={group.label} className="mb-5 last:mb-0">
             <p className="px-2.5 pb-1.5 font-mono text-[0.625rem] tracking-[0.12em] text-shell-ink-2">
@@ -94,18 +98,22 @@ export function SideNavFooter({ user, children }) {
     <div className="grid gap-2">
       <div className="flex items-center gap-2.5 rounded-[var(--radius-field)] bg-shell-2 px-2.5 py-2">
         <span className="grid size-7 shrink-0 place-items-center rounded-full bg-mark text-[0.625rem] font-semibold text-mark-ink">
-          {user?.name
-            ? user.name
-                .split(" ")
-                .filter(Boolean)
-                .slice(0, 2)
-                .map((part) => part[0])
-                .join("")
-                .toUpperCase()
-            : <UserRound className="size-3.5" />}
+          {user?.name ? (
+            user.name
+              .split(" ")
+              .filter(Boolean)
+              .slice(0, 2)
+              .map((part) => part[0])
+              .join("")
+              .toUpperCase()
+          ) : (
+            <UserRound className="size-3.5" />
+          )}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[0.8125rem] text-shell-ink">{user?.name}</span>
+          <span className="block truncate text-[0.8125rem] text-shell-ink">
+            {user?.name}
+          </span>
           <span className="block truncate font-mono text-[0.625rem] text-shell-ink-2">
             {user?.email}
           </span>

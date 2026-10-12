@@ -19,11 +19,13 @@ export default async function SavedJobsPage() {
   const resume = findPrimaryResume(user.id);
   const applied = applicationStatusByJob(user.id);
 
-  const jobs = (resume ? annotateJobsWithMatch(saved, resume) : saved).map((job) => ({
-    ...job,
-    saved: true,
-    applicationStatus: applied[job.id] || null,
-  }));
+  const jobs = (resume ? annotateJobsWithMatch(saved, resume) : saved).map(
+    (job) => ({
+      ...job,
+      saved: true,
+      applicationStatus: applied[job.id] || null,
+    }),
+  );
 
   return (
     <>

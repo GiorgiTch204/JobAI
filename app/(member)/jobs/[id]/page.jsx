@@ -15,7 +15,13 @@ import { findUserApplicationForJob } from "@/lib/db/applications.repo";
 import { isJobSaved } from "@/lib/db/saved-jobs.repo";
 import { matchResumeToJob } from "@/lib/match";
 import { LABELS } from "@/lib/constants";
-import { formatDate, formatNumber, formatRelative, formatSalary, pluralise } from "@/lib/utils";
+import {
+  formatDate,
+  formatNumber,
+  formatRelative,
+  formatSalary,
+  pluralise,
+} from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -46,7 +52,11 @@ export default async function JobDetailPage({ params }) {
 
   const facts = [
     { icon: Building2, label: "Company", value: job.company },
-    { icon: MapPin, label: "Location", value: `${job.location} · ${LABELS.workMode[job.workMode]}` },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: `${job.location} · ${LABELS.workMode[job.workMode]}`,
+    },
     {
       icon: Wallet,
       label: "Salary",
@@ -78,18 +88,24 @@ export default async function JobDetailPage({ params }) {
                   <h1 className="font-display text-[1.5rem] leading-tight tracking-tight text-ink sm:text-[1.875rem]">
                     {job.title}
                   </h1>
-                  <p className="mt-1.5 text-[0.9375rem] text-ink-2">{job.company}</p>
+                  <p className="mt-1.5 text-[0.9375rem] text-ink-2">
+                    {job.company}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   {job.status !== "OPEN" ? (
                     <StatusBadge value={job.status} group="jobStatus" />
                   ) : null}
-                  {user ? <SaveJobButton jobId={job.id} initialSaved={saved} /> : null}
+                  {user ? (
+                    <SaveJobButton jobId={job.id} initialSaved={saved} />
+                  ) : null}
                 </div>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-1.5">
-                <Badge tone="neutral">{LABELS.employmentType[job.employmentType]}</Badge>
+                <Badge tone="neutral">
+                  {LABELS.employmentType[job.employmentType]}
+                </Badge>
                 <Badge tone="neutral">{LABELS.seniority[job.seniority]}</Badge>
                 <Badge tone="neutral">{LABELS.workMode[job.workMode]}</Badge>
               </div>
@@ -101,14 +117,18 @@ export default async function JobDetailPage({ params }) {
                       <fact.icon className="size-3.5" aria-hidden="true" />
                       {fact.label}
                     </dt>
-                    <dd className="mt-1 text-[0.8125rem] text-ink">{fact.value}</dd>
+                    <dd className="mt-1 text-[0.8125rem] text-ink">
+                      {fact.value}
+                    </dd>
                   </div>
                 ))}
               </dl>
             </div>
 
             <PanelBody className="sm:p-6">
-              <h2 className="text-[0.9375rem] font-semibold text-ink">About the role</h2>
+              <h2 className="text-[0.9375rem] font-semibold text-ink">
+                About the role
+              </h2>
               <div className="mt-2.5 max-w-[68ch] whitespace-pre-line text-[0.875rem] leading-relaxed text-ink-2">
                 {job.description}
               </div>
@@ -137,7 +157,9 @@ export default async function JobDetailPage({ params }) {
 
               {job.benefits.length ? (
                 <>
-                  <h2 className="mt-6 text-[0.9375rem] font-semibold text-ink">What they offer</h2>
+                  <h2 className="mt-6 text-[0.9375rem] font-semibold text-ink">
+                    What they offer
+                  </h2>
                   <ul className="mt-2.5 flex flex-wrap gap-1.5">
                     {job.benefits.map((item) => (
                       <li key={item}>
@@ -155,7 +177,12 @@ export default async function JobDetailPage({ params }) {
                   </h2>
                   <div className="mt-2.5 flex flex-wrap gap-1.5">
                     {job.tags.map((tag) => (
-                      <Keyword key={tag} hit={match ? match.hits.includes(tag.toLowerCase()) : false}>
+                      <Keyword
+                        key={tag}
+                        hit={
+                          match ? match.hits.includes(tag.toLowerCase()) : false
+                        }
+                      >
                         {tag}
                       </Keyword>
                     ))}
@@ -172,7 +199,10 @@ export default async function JobDetailPage({ params }) {
 
           {related.length ? (
             <Panel>
-              <PanelHeader title="Similar postings" description={`Also tagged ${job.tags[0]}`} />
+              <PanelHeader
+                title="Similar postings"
+                description={`Also tagged ${job.tags[0]}`}
+              />
               <ul className="divide-y divide-[var(--rule)]">
                 {related.map((item) => (
                   <li key={item.id}>
@@ -189,7 +219,11 @@ export default async function JobDetailPage({ params }) {
                         </span>
                       </span>
                       <span className="tabular shrink-0 font-mono text-[0.6875rem] text-ink-3">
-                        {formatSalary(item.salaryMin, item.salaryMax, item.salaryCurrency)}
+                        {formatSalary(
+                          item.salaryMin,
+                          item.salaryMax,
+                          item.salaryCurrency,
+                        )}
                       </span>
                     </Link>
                   </li>
@@ -220,17 +254,24 @@ export default async function JobDetailPage({ params }) {
             </Panel>
           ) : user ? (
             <Alert tone="info" title="No CV to compare">
-              <Link href="/cv/upload" className="font-medium underline underline-offset-2">
+              <Link
+                href="/cv/upload"
+                className="font-medium underline underline-offset-2"
+              >
                 Import a CV
               </Link>{" "}
-              and this panel shows exactly which of this posting's keywords you are missing.
+              and this panel shows exactly which of this posting's keywords you
+              are missing.
             </Alert>
           ) : null}
 
           <Panel>
             <PanelHeader title="Posting details" />
             <PanelBody className="grid gap-2.5 text-[0.8125rem]">
-              <Row label="Applications" value={formatNumber(job.applicationCount ?? 0)} />
+              <Row
+                label="Applications"
+                value={formatNumber(job.applicationCount ?? 0)}
+              />
               <Row label="Views" value={formatNumber(job.views)} />
               <Row label="Status" value={LABELS.jobStatus[job.status]} />
               <Row label="Reference" value={job.id} mono />
@@ -256,7 +297,11 @@ function Row({ label, value, mono = false }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
       <span className="text-ink-3">{label}</span>
-      <span className={mono ? "font-mono text-[0.6875rem] text-ink-2" : "tabular text-ink-2"}>
+      <span
+        className={
+          mono ? "font-mono text-[0.6875rem] text-ink-2" : "tabular text-ink-2"
+        }
+      >
         {value}
       </span>
     </div>

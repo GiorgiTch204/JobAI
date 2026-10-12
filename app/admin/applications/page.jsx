@@ -4,7 +4,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { ApplicationsReview } from "./ApplicationsReview";
 import { requireAdmin } from "@/lib/auth/session";
-import { applicationsByStatus, listApplications } from "@/lib/db/applications.repo";
+import {
+  applicationsByStatus,
+  listApplications,
+} from "@/lib/db/applications.repo";
 import { findJob } from "@/lib/db/jobs.repo";
 
 export const dynamic = "force-dynamic";
@@ -39,7 +42,11 @@ export default async function AdminApplicationsPage({ searchParams }) {
             : "Every application, with the CV that was sent and the full status history."
         }
         actions={
-          <Button href="/api/admin/export?dataset=applications" variant="outline" size="sm">
+          <Button
+            href="/api/admin/export?dataset=applications"
+            variant="outline"
+            size="sm"
+          >
             <Download className="size-3.5" aria-hidden="true" />
             Export CSV
           </Button>

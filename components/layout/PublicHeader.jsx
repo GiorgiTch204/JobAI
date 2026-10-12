@@ -21,7 +21,10 @@ export function PublicHeader() {
       <div className="mx-auto flex h-14 w-full max-w-[82rem] items-center gap-4 px-4 sm:px-6 lg:px-8">
         <Logo />
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Sections">
+        <nav
+          className="hidden items-center gap-1 md:flex"
+          aria-label="Sections"
+        >
           {PUBLIC_NAV.map((item) => (
             <Link
               key={item.href}
@@ -38,14 +41,24 @@ export function PublicHeader() {
 
           {signedIn ? (
             <>
-              <Button href={isAdmin ? "/admin" : "/dashboard"} size="sm" variant="outline" className="hidden sm:inline-flex">
+              <Button
+                href={isAdmin ? "/admin" : "/dashboard"}
+                size="sm"
+                variant="outline"
+                className="hidden sm:inline-flex"
+              >
                 {isAdmin ? "Admin console" : "Dashboard"}
               </Button>
               <UserMenu />
             </>
           ) : (
             <>
-              <Button href="/login" size="sm" variant="ghost" className="hidden sm:inline-flex">
+              <Button
+                href="/login"
+                size="sm"
+                variant="ghost"
+                className="hidden sm:inline-flex"
+              >
                 Sign in
               </Button>
               <Button href="/register" size="sm">
@@ -85,12 +98,21 @@ export function PublicHeader() {
           ))}
           <div className="mt-2 flex items-center gap-2 border-t border-rule pt-3">
             {signedIn ? (
-              <Button href={isAdmin ? "/admin" : "/dashboard"} size="sm" className="flex-1">
+              <Button
+                href={isAdmin ? "/admin" : "/dashboard"}
+                size="sm"
+                className="flex-1"
+              >
                 {isAdmin ? "Admin console" : "Dashboard"}
               </Button>
             ) : (
               <>
-                <Button href="/login" size="sm" variant="outline" className="flex-1">
+                <Button
+                  href="/login"
+                  size="sm"
+                  variant="outline"
+                  className="flex-1"
+                >
                   Sign in
                 </Button>
                 <Button href="/register" size="sm" className="flex-1">

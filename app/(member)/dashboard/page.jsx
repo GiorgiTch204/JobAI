@@ -20,7 +20,10 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { MatchBadge } from "@/components/jobs/MatchBadge";
 import { requireUser } from "@/lib/auth/session";
 import { findPrimaryResume, listResumes } from "@/lib/db/resumes.repo";
-import { countApplications, recentApplications } from "@/lib/db/applications.repo";
+import {
+  countApplications,
+  recentApplications,
+} from "@/lib/db/applications.repo";
 import { countSavedJobs } from "@/lib/db/saved-jobs.repo";
 import { listJobs } from "@/lib/db/jobs.repo";
 import { annotateJobsWithMatch } from "@/lib/match";
@@ -79,7 +82,11 @@ export default async function DashboardPage({ searchParams }) {
       />
 
       {params?.denied === "admin" ? (
-        <Alert tone="warning" className="mb-5" title="Admin console is restricted">
+        <Alert
+          tone="warning"
+          className="mb-5"
+          title="Admin console is restricted"
+        >
           That area needs an administrator account.
         </Alert>
       ) : null}
@@ -92,8 +99,9 @@ export default async function DashboardPage({ searchParams }) {
                 Nothing to score yet
               </h2>
               <p className="mt-2.5 max-w-md text-[0.875rem] leading-relaxed text-ink-2">
-                Import a PDF or DOCX and JobAI will read the text, fill in the builder's fields and
-                score what it found. If you would rather start clean, open the builder instead.
+                Import a PDF or DOCX and JobAI will read the text, fill in the
+                builder's fields and score what it found. If you would rather
+                start clean, open the builder instead.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 <Button href="/cv/upload">
@@ -127,7 +135,11 @@ export default async function DashboardPage({ searchParams }) {
         <Stat
           label="Applications"
           value={counts.applications}
-          delta={counts.applications ? "Track replies in Applications" : "None sent yet"}
+          delta={
+            counts.applications
+              ? "Track replies in Applications"
+              : "None sent yet"
+          }
           icon={Send}
           href="/applications"
         />
@@ -141,7 +153,9 @@ export default async function DashboardPage({ searchParams }) {
         <Stat
           label="Saved jobs"
           value={counts.saved}
-          delta={counts.saved ? "Waiting for your CV to catch up" : "Nothing saved"}
+          delta={
+            counts.saved ? "Waiting for your CV to catch up" : "Nothing saved"
+          }
           icon={Bookmark}
           href="/saved"
         />
@@ -152,7 +166,11 @@ export default async function DashboardPage({ searchParams }) {
         <Panel>
           <PanelHeader
             title="Your ATS score"
-            description={resume ? `From “${resume.title}”` : "Add a CV to see the breakdown"}
+            description={
+              resume
+                ? `From “${resume.title}”`
+                : "Add a CV to see the breakdown"
+            }
             action={
               resume ? (
                 <Button href="/cv" variant="quiet" size="sm">
@@ -194,7 +212,10 @@ export default async function DashboardPage({ searchParams }) {
                 {report.fixes?.length ? (
                   <div className="mt-4 rounded-[var(--radius-field)] border border-rule bg-surface-2 p-3.5">
                     <p className="flex items-center gap-1.5 text-[0.8125rem] font-medium text-ink">
-                      <TriangleAlert className="size-3.5 text-warning" aria-hidden="true" />
+                      <TriangleAlert
+                        className="size-3.5 text-warning"
+                        aria-hidden="true"
+                      />
                       Do this first
                     </p>
                     <p className="mt-1.5 text-[0.8125rem] leading-relaxed text-ink-2">
@@ -253,7 +274,9 @@ export default async function DashboardPage({ searchParams }) {
                     {job.match ? (
                       <MatchBadge score={job.match.score} size="sm" />
                     ) : (
-                      <Badge tone="muted">{formatRelative(job.createdAt)}</Badge>
+                      <Badge tone="muted">
+                        {formatRelative(job.createdAt)}
+                      </Badge>
                     )}
                   </Link>
                 </li>
@@ -290,7 +313,8 @@ export default async function DashboardPage({ searchParams }) {
                         {application.job.title}
                       </p>
                       <p className="mt-0.5 truncate text-[0.75rem] text-ink-3">
-                        {application.job.company} · sent {formatRelative(application.createdAt)}
+                        {application.job.company} · sent{" "}
+                        {formatRelative(application.createdAt)}
                       </p>
                     </div>
                     <StatusBadge value={application.status} />
@@ -303,7 +327,11 @@ export default async function DashboardPage({ searchParams }) {
                   icon={Send}
                   title="No applications yet"
                   description="When you apply, the status and every change to it shows up here."
-                  action={{ label: "Find a role", href: "/jobs", variant: "outline" }}
+                  action={{
+                    label: "Find a role",
+                    href: "/jobs",
+                    variant: "outline",
+                  }}
                 />
               </PanelBody>
             )}
@@ -317,15 +345,22 @@ export default async function DashboardPage({ searchParams }) {
               />
               <ul className="divide-y divide-[var(--rule)]">
                 {resumes.map((item) => (
-                  <li key={item.id} className="flex items-center justify-between gap-3 px-5 py-3">
+                  <li
+                    key={item.id}
+                    className="flex items-center justify-between gap-3 px-5 py-3"
+                  >
                     <span className="min-w-0">
-                      <span className="block truncate text-[0.8125rem] text-ink">{item.title}</span>
+                      <span className="block truncate text-[0.8125rem] text-ink">
+                        {item.title}
+                      </span>
                       <span className="block text-[0.6875rem] text-ink-3">
                         updated {formatRelative(item.updatedAt)}
                       </span>
                     </span>
                     <span className="flex items-center gap-2">
-                      {item.isPrimary ? <Badge tone="mark">primary</Badge> : null}
+                      {item.isPrimary ? (
+                        <Badge tone="mark">primary</Badge>
+                      ) : null}
                       <span className="tabular font-mono text-[0.6875rem] text-ink-2">
                         {item.atsScore}
                       </span>

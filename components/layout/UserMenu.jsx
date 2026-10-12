@@ -2,7 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronDown, LogOut, Settings, ShieldCheck, UserRound } from "lucide-react";
+import {
+  ChevronDown,
+  LogOut,
+  Settings,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
 
 import { useAuth } from "@/components/providers/AuthProvider";
 import { Avatar } from "@/components/ui/Avatar";
@@ -69,19 +75,35 @@ export function UserMenu({ align = "right" }) {
           )}
         >
           <div className="border-b border-rule px-3.5 py-3">
-            <p className="truncate text-[0.8125rem] font-medium text-ink">{user.name}</p>
-            <p className="truncate font-mono text-[0.6875rem] text-ink-3">{user.email}</p>
+            <p className="truncate text-[0.8125rem] font-medium text-ink">
+              {user.name}
+            </p>
+            <p className="truncate font-mono text-[0.6875rem] text-ink-3">
+              {user.email}
+            </p>
           </div>
 
           <div className="grid p-1.5">
-            <MenuLink href="/dashboard" icon={UserRound} onClick={() => setOpen(false)}>
+            <MenuLink
+              href="/dashboard"
+              icon={UserRound}
+              onClick={() => setOpen(false)}
+            >
               Your dashboard
             </MenuLink>
-            <MenuLink href="/settings" icon={Settings} onClick={() => setOpen(false)}>
+            <MenuLink
+              href="/settings"
+              icon={Settings}
+              onClick={() => setOpen(false)}
+            >
               Settings
             </MenuLink>
             {isAdmin ? (
-              <MenuLink href="/admin" icon={ShieldCheck} onClick={() => setOpen(false)}>
+              <MenuLink
+                href="/admin"
+                icon={ShieldCheck}
+                onClick={() => setOpen(false)}
+              >
                 Admin console
               </MenuLink>
             ) : null}

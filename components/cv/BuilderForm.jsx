@@ -16,7 +16,13 @@ import {
 
 import { Panel, PanelBody, PanelHeader } from "@/components/ui/Panel";
 import { Button } from "@/components/ui/Button";
-import { Checkbox, Field, Input, Select, Textarea } from "@/components/ui/Field";
+import {
+  Checkbox,
+  Field,
+  Input,
+  Select,
+  Textarea,
+} from "@/components/ui/Field";
 import { Badge } from "@/components/ui/Badge";
 import { Alert } from "@/components/ui/Alert";
 import { ConfirmDialog } from "@/components/ui/Modal";
@@ -59,7 +65,9 @@ export function BuilderForm({ resumes, activeId }) {
   const toast = useToast();
 
   const [list, setList] = useState(resumes);
-  const [currentId, setCurrentId] = useState(activeId || resumes[0]?.id || null);
+  const [currentId, setCurrentId] = useState(
+    activeId || resumes[0]?.id || null,
+  );
 
   const active = useMemo(
     () => list.find((item) => item.id === currentId) || null,
@@ -94,7 +102,8 @@ export function BuilderForm({ resumes, activeId }) {
     setError("");
   }, []);
 
-  const handleField = (event) => update({ [event.target.name]: event.target.value });
+  const handleField = (event) =>
+    update({ [event.target.name]: event.target.value });
 
   /* ------------------------------------------------------------------ */
   /* saving                                                             */
@@ -126,7 +135,9 @@ export function BuilderForm({ resumes, activeId }) {
     try {
       const data = await patch(`/api/resumes/${currentId}`, payload);
       setList((current) =>
-        current.map((item) => (item.id === currentId ? { ...item, ...data.resume } : item)),
+        current.map((item) =>
+          item.id === currentId ? { ...item, ...data.resume } : item,
+        ),
       );
       setDirty(false);
       toast.success(`Saved. ATS score ${data.report.score}.`);
@@ -214,7 +225,9 @@ export function BuilderForm({ resumes, activeId }) {
     try {
       const data = await post("/api/cv/summary", { resume: draft });
       update({ summary: data.summary });
-      toast.success("Summary drafted from your own roles and skills — edit it to sound like you.");
+      toast.success(
+        "Summary drafted from your own roles and skills — edit it to sound like you.",
+      );
     } catch (caught) {
       toast.error(caught.message);
     }
@@ -224,11 +237,17 @@ export function BuilderForm({ resumes, activeId }) {
     const text = draft.experience[roleIndex]?.achievements?.[bulletIndex];
     if (!text) return;
     try {
-      const data = await post("/api/cv/optimize", { text, targetRole: draft.headline });
+      const data = await post("/api/cv/optimize", {
+        text,
+        targetRole: draft.headline,
+      });
       const next = structuredClone(draft.experience);
-      next[roleIndex].achievements[bulletIndex] = data.result.suggestions?.[0] || data.result.optimized;
+      next[roleIndex].achievements[bulletIndex] =
+        data.result.suggestions?.[0] || data.result.optimized;
       update({ experience: next });
-      toast.info(data.result.notes[0] || "Rewritten with a stronger opening verb.");
+      toast.info(
+        data.result.notes[0] || "Rewritten with a stronger opening verb.",
+      );
     } catch (caught) {
       toast.error(caught.message);
     }
@@ -242,7 +261,9 @@ export function BuilderForm({ resumes, activeId }) {
     event.preventDefault();
     const value = skillInput.trim();
     if (!value) return;
-    if (draft.skills.some((skill) => skill.toLowerCase() === value.toLowerCase())) {
+    if (
+      draft.skills.some((skill) => skill.toLowerCase() === value.toLowerCase())
+    ) {
       setSkillInput("");
       return;
     }
@@ -267,7 +288,8 @@ export function BuilderForm({ resumes, activeId }) {
         <PanelBody className="py-12 text-center">
           <h2 className="text-[1rem] font-semibold text-ink">No CV yet</h2>
           <p className="mx-auto mt-2 max-w-sm text-[0.875rem] leading-relaxed text-ink-2">
-            Create an empty document and fill it in, or import a file you already have.
+            Create an empty document and fill it in, or import a file you
+            already have.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Button onClick={createDocument}>
@@ -291,7 +313,11 @@ export function BuilderForm({ resumes, activeId }) {
           <Select
             value={currentId}
             onChange={(event) => {
-              if (dirty && !window.confirm("You have unsaved changes. Switch anyway?")) return;
+              if (
+                dirty &&
+                !window.confirm("You have unsaved changes. Switch anyway?")
+              )
+                return;
               setCurrentId(event.target.value);
             }}
             aria-label="Choose a CV"
@@ -305,7 +331,9 @@ export function BuilderForm({ resumes, activeId }) {
             ))}
           </Select>
         ) : (
-          <span className="px-1 text-[0.875rem] font-medium text-ink">{active.title}</span>
+          <span className="px-1 text-[0.875rem] font-medium text-ink">
+            {active.title}
+          </span>
         )}
 
         {active.isPrimary ? (
@@ -319,7 +347,9 @@ export function BuilderForm({ resumes, activeId }) {
 
         <span className="ml-auto flex items-center gap-2">
           {dirty ? (
-            <span className="font-mono text-[0.6875rem] text-warning">unsaved changes</span>
+            <span className="font-mono text-[0.6875rem] text-warning">
+              unsaved changes
+            </span>
           ) : (
             <span className="flex items-center gap-1 font-mono text-[0.6875rem] text-ink-3">
               <CircleCheck className="size-3" aria-hidden="true" />
@@ -336,7 +366,12 @@ export function BuilderForm({ resumes, activeId }) {
             Print view
           </Button>
           {list.length > 1 ? (
-            <Button variant="ghost" size="icon-sm" onClick={() => setConfirmDelete(true)} aria-label="Delete this CV">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              onClick={() => setConfirmDelete(true)}
+              aria-label="Delete this CV"
+            >
               <Trash2 className="size-4" />
             </Button>
           ) : null}
@@ -359,14 +394,31 @@ export function BuilderForm({ resumes, activeId }) {
         {/* ------------------------------------------------------------- */}
         <div className="grid gap-5">
           <Panel>
-            <PanelHeader title="Basics" description="The block a parser reads first." />
+            <PanelHeader
+              title="Basics"
+              description="The block a parser reads first."
+            />
             <PanelBody className="grid gap-4">
-              <Field label="Document name" htmlFor="title" hint="Only you see this">
-                <Input id="title" name="title" value={draft.title} onChange={handleField} />
+              <Field
+                label="Document name"
+                htmlFor="title"
+                hint="Only you see this"
+              >
+                <Input
+                  id="title"
+                  name="title"
+                  value={draft.title}
+                  onChange={handleField}
+                />
               </Field>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Full name" htmlFor="fullName" error={fieldErrors.fullName} required>
+                <Field
+                  label="Full name"
+                  htmlFor="fullName"
+                  error={fieldErrors.fullName}
+                  required
+                >
                   <Input
                     id="fullName"
                     name="fullName"
@@ -376,7 +428,11 @@ export function BuilderForm({ resumes, activeId }) {
                     error={fieldErrors.fullName}
                   />
                 </Field>
-                <Field label="Headline" htmlFor="headline" hint="The role you want">
+                <Field
+                  label="Headline"
+                  htmlFor="headline"
+                  hint="The role you want"
+                >
                   <Input
                     id="headline"
                     name="headline"
@@ -396,7 +452,12 @@ export function BuilderForm({ resumes, activeId }) {
                   />
                 </Field>
                 <Field label="Phone" htmlFor="phone">
-                  <Input id="phone" name="phone" value={draft.phone} onChange={handleField} />
+                  <Input
+                    id="phone"
+                    name="phone"
+                    value={draft.phone}
+                    onChange={handleField}
+                  />
                 </Field>
                 <Field label="Location" htmlFor="location">
                   <Input
@@ -408,7 +469,12 @@ export function BuilderForm({ resumes, activeId }) {
                   />
                 </Field>
                 <Field label="Website or GitHub" htmlFor="website">
-                  <Input id="website" name="website" value={draft.website} onChange={handleField} />
+                  <Input
+                    id="website"
+                    name="website"
+                    value={draft.website}
+                    onChange={handleField}
+                  />
                 </Field>
               </div>
             </PanelBody>
@@ -436,7 +502,10 @@ export function BuilderForm({ resumes, activeId }) {
                 maxLength={1200}
               />
               <p className="mt-1.5 tabular text-[0.6875rem] text-ink-3">
-                {draft.summary ? draft.summary.trim().split(/\s+/).filter(Boolean).length : 0} words
+                {draft.summary
+                  ? draft.summary.trim().split(/\s+/).filter(Boolean).length
+                  : 0}{" "}
+                words
               </p>
             </PanelBody>
           </Panel>
@@ -516,7 +585,8 @@ export function BuilderForm({ resumes, activeId }) {
             <PanelBody className="grid gap-4">
               {draft.experience.length === 0 ? (
                 <p className="text-[0.8125rem] text-ink-3">
-                  No roles yet. Internships, freelance work and university projects all count.
+                  No roles yet. Internships, freelance work and university
+                  projects all count.
                 </p>
               ) : null}
 
@@ -543,7 +613,11 @@ export function BuilderForm({ resumes, activeId }) {
                     <Field label="Job title">
                       <Input
                         value={role.role}
-                        onChange={(event) => updateItem("experience", index, { role: event.target.value })}
+                        onChange={(event) =>
+                          updateItem("experience", index, {
+                            role: event.target.value,
+                          })
+                        }
                         placeholder="Frontend developer"
                       />
                     </Field>
@@ -551,7 +625,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={role.company}
                         onChange={(event) =>
-                          updateItem("experience", index, { company: event.target.value })
+                          updateItem("experience", index, {
+                            company: event.target.value,
+                          })
                         }
                       />
                     </Field>
@@ -559,7 +635,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={role.startDate}
                         onChange={(event) =>
-                          updateItem("experience", index, { startDate: event.target.value })
+                          updateItem("experience", index, {
+                            startDate: event.target.value,
+                          })
                         }
                       />
                     </Field>
@@ -569,7 +647,9 @@ export function BuilderForm({ resumes, activeId }) {
                         disabled={role.current}
                         placeholder={role.current ? "Present" : "Mar 2025"}
                         onChange={(event) =>
-                          updateItem("experience", index, { endDate: event.target.value })
+                          updateItem("experience", index, {
+                            endDate: event.target.value,
+                          })
                         }
                       />
                     </Field>
@@ -589,7 +669,9 @@ export function BuilderForm({ resumes, activeId }) {
 
                   <div className="mt-4">
                     <div className="flex items-center justify-between gap-2">
-                      <p className="text-[0.8125rem] font-medium text-ink-2">What you achieved</p>
+                      <p className="text-[0.8125rem] font-medium text-ink-2">
+                        What you achieved
+                      </p>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -702,7 +784,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={item.degree}
                         onChange={(event) =>
-                          updateItem("education", index, { degree: event.target.value })
+                          updateItem("education", index, {
+                            degree: event.target.value,
+                          })
                         }
                         placeholder="BSc Computer Science"
                       />
@@ -711,7 +795,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={item.school}
                         onChange={(event) =>
-                          updateItem("education", index, { school: event.target.value })
+                          updateItem("education", index, {
+                            school: event.target.value,
+                          })
                         }
                       />
                     </Field>
@@ -719,7 +805,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={item.startDate}
                         onChange={(event) =>
-                          updateItem("education", index, { startDate: event.target.value })
+                          updateItem("education", index, {
+                            startDate: event.target.value,
+                          })
                         }
                       />
                     </Field>
@@ -727,7 +815,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={item.endDate}
                         onChange={(event) =>
-                          updateItem("education", index, { endDate: event.target.value })
+                          updateItem("education", index, {
+                            endDate: event.target.value,
+                          })
                         }
                       />
                     </Field>
@@ -735,7 +825,9 @@ export function BuilderForm({ resumes, activeId }) {
                 </fieldset>
               ))}
               {draft.education.length === 0 ? (
-                <p className="text-[0.8125rem] text-ink-3">Nothing added yet.</p>
+                <p className="text-[0.8125rem] text-ink-3">
+                  Nothing added yet.
+                </p>
               ) : null}
             </PanelBody>
           </Panel>
@@ -789,7 +881,9 @@ export function BuilderForm({ resumes, activeId }) {
                         <Input
                           value={project.name}
                           onChange={(event) =>
-                            updateItem("projects", index, { name: event.target.value })
+                            updateItem("projects", index, {
+                              name: event.target.value,
+                            })
                           }
                         />
                       </Field>
@@ -797,7 +891,9 @@ export function BuilderForm({ resumes, activeId }) {
                         <Input
                           value={project.url}
                           onChange={(event) =>
-                            updateItem("projects", index, { url: event.target.value })
+                            updateItem("projects", index, {
+                              url: event.target.value,
+                            })
                           }
                           placeholder="https://github.com/…"
                         />
@@ -808,7 +904,9 @@ export function BuilderForm({ resumes, activeId }) {
                         rows={2}
                         value={project.description}
                         onChange={(event) =>
-                          updateItem("projects", index, { description: event.target.value })
+                          updateItem("projects", index, {
+                            description: event.target.value,
+                          })
                         }
                       />
                     </Field>
@@ -829,7 +927,9 @@ export function BuilderForm({ resumes, activeId }) {
                 </fieldset>
               ))}
               {draft.projects.length === 0 ? (
-                <p className="text-[0.8125rem] text-ink-3">Nothing added yet.</p>
+                <p className="text-[0.8125rem] text-ink-3">
+                  Nothing added yet.
+                </p>
               ) : null}
             </PanelBody>
           </Panel>
@@ -843,7 +943,13 @@ export function BuilderForm({ resumes, activeId }) {
                   <Button
                     variant="ghost"
                     size="icon-sm"
-                    onClick={() => addFromList("languages", { id: uid("lang"), name: "", level: "" })}
+                    onClick={() =>
+                      addFromList("languages", {
+                        id: uid("lang"),
+                        name: "",
+                        level: "",
+                      })
+                    }
                     aria-label="Add a language"
                   >
                     <Plus className="size-4" />
@@ -856,7 +962,9 @@ export function BuilderForm({ resumes, activeId }) {
                     <Input
                       value={item.name}
                       onChange={(event) =>
-                        updateItem("languages", index, { name: event.target.value })
+                        updateItem("languages", index, {
+                          name: event.target.value,
+                        })
                       }
                       placeholder="Georgian"
                       aria-label="Language"
@@ -864,7 +972,9 @@ export function BuilderForm({ resumes, activeId }) {
                     <Select
                       value={item.level}
                       onChange={(event) =>
-                        updateItem("languages", index, { level: event.target.value })
+                        updateItem("languages", index, {
+                          level: event.target.value,
+                        })
                       }
                       aria-label="Level"
                       className="w-32"
@@ -887,7 +997,9 @@ export function BuilderForm({ resumes, activeId }) {
                   </div>
                 ))}
                 {draft.languages.length === 0 ? (
-                  <p className="text-[0.8125rem] text-ink-3">Nothing added yet.</p>
+                  <p className="text-[0.8125rem] text-ink-3">
+                    Nothing added yet.
+                  </p>
                 ) : null}
               </PanelBody>
             </Panel>
@@ -920,7 +1032,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={item.name}
                         onChange={(event) =>
-                          updateItem("certifications", index, { name: event.target.value })
+                          updateItem("certifications", index, {
+                            name: event.target.value,
+                          })
                         }
                         placeholder="Certificate name"
                         aria-label="Certificate name"
@@ -938,7 +1052,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={item.issuer}
                         onChange={(event) =>
-                          updateItem("certifications", index, { issuer: event.target.value })
+                          updateItem("certifications", index, {
+                            issuer: event.target.value,
+                          })
                         }
                         placeholder="Issuer"
                         aria-label="Issuer"
@@ -946,7 +1062,9 @@ export function BuilderForm({ resumes, activeId }) {
                       <Input
                         value={item.year}
                         onChange={(event) =>
-                          updateItem("certifications", index, { year: event.target.value })
+                          updateItem("certifications", index, {
+                            year: event.target.value,
+                          })
                         }
                         placeholder="Year"
                         aria-label="Year"
@@ -956,7 +1074,9 @@ export function BuilderForm({ resumes, activeId }) {
                   </div>
                 ))}
                 {draft.certifications.length === 0 ? (
-                  <p className="text-[0.8125rem] text-ink-3">Nothing added yet.</p>
+                  <p className="text-[0.8125rem] text-ink-3">
+                    Nothing added yet.
+                  </p>
                 ) : null}
               </PanelBody>
             </Panel>

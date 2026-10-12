@@ -39,15 +39,16 @@ export default function AuthLayout({ children }) {
 
           <ul className="grid gap-4 text-[0.875rem] leading-relaxed text-shell-ink-2">
             <li className="border-l-2 border-mark pl-3.5">
-              Your CV is parsed into fields — contact block, roles, dates, skills — exactly as a
-              tracking system would read it.
+              Your CV is parsed into fields — contact block, roles, dates,
+              skills — exactly as a tracking system would read it.
             </li>
             <li className="border-l-2 border-shell-rule pl-3.5">
-              Six checks score what it found, each one telling you what to change.
+              Six checks score what it found, each one telling you what to
+              change.
             </li>
             <li className="border-l-2 border-shell-rule pl-3.5">
-              Every job post is compared against your CV, so you can see the keywords it screens
-              for that you have not mentioned.
+              Every job post is compared against your CV, so you can see the
+              keywords it screens for that you have not mentioned.
             </li>
           </ul>
         </div>

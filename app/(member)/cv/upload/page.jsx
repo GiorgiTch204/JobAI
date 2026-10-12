@@ -6,7 +6,8 @@ import { countResumes } from "@/lib/db/resumes.repo";
 export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Import a CV",
-  description: "Upload a PDF, DOCX or text CV and see exactly what a parser reads from it.",
+  description:
+    "Upload a PDF, DOCX or text CV and see exactly what a parser reads from it.",
 };
 
 export default async function CvUploadPage() {

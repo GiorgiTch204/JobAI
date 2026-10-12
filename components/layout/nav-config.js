@@ -37,7 +37,11 @@ export const ADMIN_NAV = [
       { href: "/admin", label: "Overview", icon: "chart" },
       { href: "/admin/users", label: "Members", icon: "users" },
       { href: "/admin/jobs", label: "Job postings", icon: "jobs" },
-      { href: "/admin/applications", label: "Applications", icon: "applications" },
+      {
+        href: "/admin/applications",
+        label: "Applications",
+        icon: "applications",
+      },
       { href: "/admin/activity", label: "Activity log", icon: "activity" },
     ],
   },

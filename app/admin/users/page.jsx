@@ -34,7 +34,11 @@ export default async function AdminUsersPage({ searchParams }) {
         title="Members"
         description={`${totals.users} accounts — ${totals.admins} admin, ${totals.suspended} suspended. Everything stored about a member is on their own page.`}
         actions={
-          <Button href="/api/admin/export?dataset=users" variant="outline" size="sm">
+          <Button
+            href="/api/admin/export?dataset=users"
+            variant="outline"
+            size="sm"
+          >
             <Download className="size-3.5" aria-hidden="true" />
             Export CSV
           </Button>

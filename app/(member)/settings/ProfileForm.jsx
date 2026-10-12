@@ -2,7 +2,12 @@
 
 import { useRouter } from "next/navigation";
 
-import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/components/ui/Panel";
+import {
+  Panel,
+  PanelBody,
+  PanelFooter,
+  PanelHeader,
+} from "@/components/ui/Panel";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Textarea } from "@/components/ui/Field";
 import { Alert } from "@/components/ui/Alert";
@@ -43,7 +48,12 @@ export function ProfileForm({ user }) {
         {form.error ? <Alert tone="danger">{form.error}</Alert> : null}
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Full name" htmlFor="name" error={form.fieldErrors.name} required>
+          <Field
+            label="Full name"
+            htmlFor="name"
+            error={form.fieldErrors.name}
+            required
+          >
             <Input
               id="name"
               name="name"
@@ -52,7 +62,11 @@ export function ProfileForm({ user }) {
               error={form.fieldErrors.name}
             />
           </Field>
-          <Field label="Headline" htmlFor="headline" error={form.fieldErrors.headline}>
+          <Field
+            label="Headline"
+            htmlFor="headline"
+            error={form.fieldErrors.headline}
+          >
             <Input
               id="headline"
               name="headline"
@@ -62,7 +76,12 @@ export function ProfileForm({ user }) {
             />
           </Field>
           <Field label="Phone" htmlFor="phone">
-            <Input id="phone" name="phone" value={form.values.phone} onChange={form.handleChange} />
+            <Input
+              id="phone"
+              name="phone"
+              value={form.values.phone}
+              onChange={form.handleChange}
+            />
           </Field>
           <Field label="Location" htmlFor="location">
             <Input
@@ -75,7 +94,11 @@ export function ProfileForm({ user }) {
           </Field>
         </div>
 
-        <Field label="Website or GitHub" htmlFor="website" error={form.fieldErrors.website}>
+        <Field
+          label="Website or GitHub"
+          htmlFor="website"
+          error={form.fieldErrors.website}
+        >
           <Input
             id="website"
             name="website"
@@ -97,7 +120,9 @@ export function ProfileForm({ user }) {
         </Field>
       </PanelBody>
       <PanelFooter>
-        <p className="text-[0.75rem] text-ink-3">Your email address cannot be changed here.</p>
+        <p className="text-[0.75rem] text-ink-3">
+          Your email address cannot be changed here.
+        </p>
         <Button type="submit" size="sm" loading={form.submitting}>
           Save changes
         </Button>

@@ -50,8 +50,12 @@ export function MemberControls({ member, isSelf }) {
             size="sm"
             disabled={isSelf}
             loading={pending === "role"}
-            onClick={() => run("role", { role: "USER" }, `${member.name} is now a member.`)}
-            title={isSelf ? "You cannot remove your own admin access" : undefined}
+            onClick={() =>
+              run("role", { role: "USER" }, `${member.name} is now a member.`)
+            }
+            title={
+              isSelf ? "You cannot remove your own admin access" : undefined
+            }
           >
             <UserRound className="size-3.5" aria-hidden="true" />
             Remove admin
@@ -61,7 +65,9 @@ export function MemberControls({ member, isSelf }) {
             variant="outline"
             size="sm"
             loading={pending === "role"}
-            onClick={() => run("role", { role: "ADMIN" }, `${member.name} is now an admin.`)}
+            onClick={() =>
+              run("role", { role: "ADMIN" }, `${member.name} is now an admin.`)
+            }
           >
             <ShieldCheck className="size-3.5" aria-hidden="true" />
             Make admin
@@ -91,7 +97,13 @@ export function MemberControls({ member, isSelf }) {
             variant="outline"
             size="sm"
             loading={pending === "status"}
-            onClick={() => run("status", { status: "ACTIVE" }, `${member.name} can sign in again.`)}
+            onClick={() =>
+              run(
+                "status",
+                { status: "ACTIVE" },
+                `${member.name} can sign in again.`,
+              )
+            }
           >
             <UserCheck className="size-3.5" aria-hidden="true" />
             Reactivate

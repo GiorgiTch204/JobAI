@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
 
 import { get, patch, post } from "@/lib/client-api";
@@ -31,14 +37,11 @@ export function AuthProvider({ initialUser = null, children }) {
     }
   }, []);
 
-  const login = useCallback(
-    async (credentials) => {
-      const data = await post("/api/auth/login", credentials);
-      setUser(data.user);
-      return data.user;
-    },
-    [],
-  );
+  const login = useCallback(async (credentials) => {
+    const data = await post("/api/auth/login", credentials);
+    setUser(data.user);
+    return data.user;
+  }, []);
 
   const register = useCallback(async (payload) => {
     const data = await post("/api/auth/register", payload);

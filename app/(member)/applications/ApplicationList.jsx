@@ -50,9 +50,15 @@ export function ApplicationList({ applications, counts, activeStatus }) {
       <Tabs
         items={TABS}
         value={activeStatus}
-        counts={{ ...counts, "": Object.values(counts).reduce((a, b) => a + b, 0) }}
+        counts={{
+          ...counts,
+          "": Object.values(counts).reduce((a, b) => a + b, 0),
+        }}
         onChange={(value) =>
-          router.push(value ? `/applications?status=${value}` : "/applications", { scroll: false })
+          router.push(
+            value ? `/applications?status=${value}` : "/applications",
+            { scroll: false },
+          )
         }
         className="mb-5"
       />
@@ -67,7 +73,9 @@ export function ApplicationList({ applications, counts, activeStatus }) {
         <ul className="grid gap-3">
           {applications.map((application) => {
             const open = expanded === application.id;
-            const canWithdraw = !["WITHDRAWN", "REJECTED", "OFFER"].includes(application.status);
+            const canWithdraw = !["WITHDRAWN", "REJECTED", "OFFER"].includes(
+              application.status,
+            );
 
             return (
               <li key={application.id}>
@@ -91,15 +99,21 @@ export function ApplicationList({ applications, counts, activeStatus }) {
                       <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-[0.75rem] text-ink-3">
                         <div className="flex gap-1.5">
                           <dt>Sent</dt>
-                          <dd className="text-ink-2">{formatDate(application.createdAt)}</dd>
+                          <dd className="text-ink-2">
+                            {formatDate(application.createdAt)}
+                          </dd>
                         </div>
                         <div className="flex gap-1.5">
                           <dt>Last change</dt>
-                          <dd className="text-ink-2">{formatRelative(application.updatedAt)}</dd>
+                          <dd className="text-ink-2">
+                            {formatRelative(application.updatedAt)}
+                          </dd>
                         </div>
                         <div className="flex gap-1.5">
                           <dt>ATS at the time</dt>
-                          <dd className="tabular text-ink-2">{application.atsScore}</dd>
+                          <dd className="tabular text-ink-2">
+                            {application.atsScore}
+                          </dd>
                         </div>
                       </dl>
                     </div>
@@ -109,12 +123,17 @@ export function ApplicationList({ applications, counts, activeStatus }) {
                       <Button
                         variant="ghost"
                         size="icon-sm"
-                        onClick={() => setExpanded(open ? null : application.id)}
+                        onClick={() =>
+                          setExpanded(open ? null : application.id)
+                        }
                         aria-expanded={open}
                         aria-label={open ? "Hide details" : "Show details"}
                       >
                         <ChevronDown
-                          className={cn("size-4 transition-transform", open && "rotate-180")}
+                          className={cn(
+                            "size-4 transition-transform",
+                            open && "rotate-180",
+                          )}
                         />
                       </Button>
                     </div>
@@ -124,7 +143,9 @@ export function ApplicationList({ applications, counts, activeStatus }) {
                     <div className="border-t border-rule bg-surface-2 px-4 py-4 sm:px-5">
                       {application.note ? (
                         <div className="mb-4">
-                          <p className="text-[0.75rem] text-ink-3">Note from the reviewer</p>
+                          <p className="text-[0.75rem] text-ink-3">
+                            Note from the reviewer
+                          </p>
                           <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink">
                             {application.note}
                           </p>
@@ -133,7 +154,9 @@ export function ApplicationList({ applications, counts, activeStatus }) {
 
                       {application.coverLetter ? (
                         <div className="mb-4">
-                          <p className="text-[0.75rem] text-ink-3">What you wrote</p>
+                          <p className="text-[0.75rem] text-ink-3">
+                            What you wrote
+                          </p>
                           <p className="mt-1 whitespace-pre-line text-[0.8125rem] leading-relaxed text-ink-2">
                             {application.coverLetter}
                           </p>

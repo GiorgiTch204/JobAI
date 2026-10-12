@@ -15,7 +15,9 @@ export default async function CvPreviewPage({ searchParams }) {
   const { user } = await requireUser("/cv/preview");
   const params = await searchParams;
 
-  const resume = params?.id ? findResume(params.id, user.id) : findPrimaryResume(user.id);
+  const resume = params?.id
+    ? findResume(params.id, user.id)
+    : findPrimaryResume(user.id);
 
   if (!resume) {
     return (
@@ -48,8 +50,9 @@ export default async function CvPreviewPage({ searchParams }) {
       </div>
 
       <p className="mb-4 text-[0.8125rem] leading-relaxed text-ink-3 print:hidden">
-        One column, no tables, no text in images — the layout a parser reads without errors. Use
-        your browser's print dialog and choose “Save as PDF”.
+        One column, no tables, no text in images — the layout a parser reads
+        without errors. Use your browser's print dialog and choose “Save as
+        PDF”.
       </p>
 
       <div className="overflow-hidden rounded-[var(--radius-sheet)] border border-rule shadow-sheet print:border-0 print:shadow-none">
@@ -57,7 +60,8 @@ export default async function CvPreviewPage({ searchParams }) {
       </div>
 
       <p className="mt-4 text-center font-mono text-[0.6875rem] text-ink-3 print:hidden">
-        {resume.title} · updated {new Date(resume.updatedAt).toLocaleDateString("en-GB")}
+        {resume.title} · updated{" "}
+        {new Date(resume.updatedAt).toLocaleDateString("en-GB")}
       </p>
     </>
   );

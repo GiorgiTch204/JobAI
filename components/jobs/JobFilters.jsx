@@ -7,7 +7,12 @@ import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input, Select } from "@/components/ui/Field";
 import { useDebounced } from "@/hooks/useDebounced";
-import { EMPLOYMENT_TYPES, LABELS, SENIORITIES, WORK_MODES } from "@/lib/constants";
+import {
+  EMPLOYMENT_TYPES,
+  LABELS,
+  SENIORITIES,
+  WORK_MODES,
+} from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 /**
@@ -38,9 +43,13 @@ export function JobFilters({ facets, hasResume }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch]);
 
-  const active = ["location", "workMode", "employmentType", "seniority", "tag"].filter((key) =>
-    params.get(key),
-  );
+  const active = [
+    "location",
+    "workMode",
+    "employmentType",
+    "seniority",
+    "tag",
+  ].filter((key) => params.get(key));
   const activeCount = active.length + (params.get("search") ? 1 : 0);
 
   return (

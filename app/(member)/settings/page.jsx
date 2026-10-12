@@ -53,11 +53,18 @@ export default async function SettingsPage() {
               <Row label="Role" value={LABELS.role[user.role]} />
               <Row label="Status" value={LABELS.userStatus[user.status]} />
               <Row label="CVs stored" value={countResumes(user.id)} />
-              <Row label="Applications sent" value={countApplications({ userId: user.id })} />
+              <Row
+                label="Applications sent"
+                value={countApplications({ userId: user.id })}
+              />
               <Row label="Sign-ins" value={user.loginCount} />
               <Row
                 label="Last sign-in"
-                value={user.lastLoginAt ? formatDate(user.lastLoginAt, { withTime: true }) : "—"}
+                value={
+                  user.lastLoginAt
+                    ? formatDate(user.lastLoginAt, { withTime: true })
+                    : "—"
+                }
               />
             </PanelBody>
           </Panel>
@@ -73,7 +80,11 @@ function Row({ label, value, mono = false }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
       <span className="text-ink-3">{label}</span>
-      <span className={mono ? "font-mono text-[0.75rem] text-ink-2" : "tabular text-ink-2"}>
+      <span
+        className={
+          mono ? "font-mono text-[0.75rem] text-ink-2" : "tabular text-ink-2"
+        }
+      >
         {value}
       </span>
     </div>

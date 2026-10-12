@@ -19,5 +19,10 @@ const SCRIPT = `
 `;
 
 export function ThemeScript() {
-  return <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: SCRIPT }} />;
+  return (
+    <script
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: SCRIPT }}
+    />
+  );
 }

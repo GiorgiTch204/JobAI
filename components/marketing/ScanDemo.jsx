@@ -14,8 +14,14 @@ import { cn } from "@/lib/utils";
  */
 
 const LINES = [
-  { text: "Giorgi Tcheishvili", className: "font-display text-[0.9375rem] text-ink" },
-  { text: "Full-stack web developer · Tbilisi, Georgia", className: "text-[0.6875rem] text-ink-3" },
+  {
+    text: "Giorgi Tcheishvili",
+    className: "font-display text-[0.9375rem] text-ink",
+  },
+  {
+    text: "Full-stack web developer · Tbilisi, Georgia",
+    className: "text-[0.6875rem] text-ink-3",
+  },
   { divider: true },
   { label: "Summary" },
   {
@@ -28,7 +34,10 @@ const LINES = [
     ],
   },
   { label: "Experience" },
-  { text: "Web developer intern — Ministry of Environment", className: "text-[0.75rem] text-ink" },
+  {
+    text: "Web developer intern — Ministry of Environment",
+    className: "text-[0.75rem] text-ink",
+  },
   {
     parts: [
       "Built an intranet used by ",
@@ -90,7 +99,9 @@ export function ScanDemo() {
     const node = ref.current;
     if (!node) return undefined;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (reduce) {
       // Show the finished state instead of the sweep, on the next tick.
       const done = window.setTimeout(() => {
@@ -139,7 +150,9 @@ export function ScanDemo() {
       {/* The sheet */}
       <div className="relative overflow-hidden rounded-[var(--radius-sheet)] border border-rule bg-surface shadow-sheet">
         <div className="flex items-center justify-between border-b border-rule bg-surface-2 px-3 py-1.5">
-          <span className="font-mono text-[0.625rem] text-ink-3">luka-danelia-cv.pdf</span>
+          <span className="font-mono text-[0.625rem] text-ink-3">
+            giorgi-tcheishvili-cv.pdf
+          </span>
           <span className="font-mono text-[0.625rem] text-ink-3">
             {started ? "parsed" : "reading…"}
           </span>
@@ -160,7 +173,10 @@ export function ScanDemo() {
               }
               if (line.label) {
                 return (
-                  <p key={index} className="mt-1 font-mono text-[0.5625rem] text-ink-3">
+                  <p
+                    key={index}
+                    className="mt-1 font-mono text-[0.5625rem] text-ink-3"
+                  >
                     {line.label}
                   </p>
                 );
@@ -169,7 +185,8 @@ export function ScanDemo() {
                 return (
                   <div key={index} className="flex flex-wrap gap-1.5 pt-0.5">
                     {line.chips.map((chip, chipIndex) => {
-                      const delay = MARK_DELAY.get(`${index}:chip:${chipIndex}`) ?? 0;
+                      const delay =
+                        MARK_DELAY.get(`${index}:chip:${chipIndex}`) ?? 0;
                       return (
                         <span
                           key={chip}
@@ -177,7 +194,11 @@ export function ScanDemo() {
                             "rounded-[3px] border border-rule px-1.5 py-0.5 font-mono text-[0.625rem] text-ink-2",
                             started && "mark-in",
                           )}
-                          style={started ? { animationDelay: `${delay}ms` } : undefined}
+                          style={
+                            started
+                              ? { animationDelay: `${delay}ms` }
+                              : undefined
+                          }
                         >
                           {chip}
                         </span>
@@ -188,15 +209,27 @@ export function ScanDemo() {
               }
               if (line.parts) {
                 return (
-                  <p key={index} className="text-[0.75rem] leading-relaxed text-ink-2">
+                  <p
+                    key={index}
+                    className="text-[0.75rem] leading-relaxed text-ink-2"
+                  >
                     {line.parts.map((part, partIndex) => {
-                      if (typeof part === "string") return <span key={partIndex}>{part}</span>;
-                      const delay = MARK_DELAY.get(`${index}:part:${partIndex}`) ?? 0;
+                      if (typeof part === "string")
+                        return <span key={partIndex}>{part}</span>;
+                      const delay =
+                        MARK_DELAY.get(`${index}:part:${partIndex}`) ?? 0;
                       return (
                         <span
                           key={partIndex}
-                          className={cn("font-medium text-ink", started && "mark-in")}
-                          style={started ? { animationDelay: `${delay}ms` } : undefined}
+                          className={cn(
+                            "font-medium text-ink",
+                            started && "mark-in",
+                          )}
+                          style={
+                            started
+                              ? { animationDelay: `${delay}ms` }
+                              : undefined
+                          }
                         >
                           {part.mark}
                         </span>
@@ -220,7 +253,9 @@ export function ScanDemo() {
         <div className="flex items-center gap-4 border-b border-rule px-4 py-3">
           <div>
             <p className="font-mono text-[0.625rem] text-ink-3">ATS score</p>
-            <p className="tabular font-display text-[2rem] leading-none text-ink">{score}</p>
+            <p className="tabular font-display text-[2rem] leading-none text-ink">
+              {score}
+            </p>
           </div>
           <div className="flex-1">
             <div className="h-1.5 overflow-hidden rounded-full bg-surface-3">

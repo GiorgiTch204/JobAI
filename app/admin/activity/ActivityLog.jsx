@@ -26,7 +26,15 @@ const TONE = {
   "application.status": "info",
 };
 
-export function ActivityLog({ entries, actions, total, page, pages, perPage, query }) {
+export function ActivityLog({
+  entries,
+  actions,
+  total,
+  page,
+  pages,
+  perPage,
+  query,
+}) {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -79,7 +87,11 @@ export function ActivityLog({ entries, actions, total, page, pages, perPage, que
           icon={Activity}
           title="Nothing recorded for that"
           description="Try a different action or clear the search."
-          action={{ label: "Clear filters", href: "/admin/activity", variant: "outline" }}
+          action={{
+            label: "Clear filters",
+            href: "/admin/activity",
+            variant: "outline",
+          }}
         />
       ) : (
         <>

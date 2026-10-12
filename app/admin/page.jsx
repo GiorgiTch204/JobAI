@@ -19,8 +19,16 @@ import { Badge, StatusBadge } from "@/components/ui/Badge";
 import { ActivityChart } from "@/components/admin/ActivityChart";
 import { BarList } from "@/components/admin/BarList";
 import { requireAdmin } from "@/lib/auth/session";
-import { dailySeries, platformTotals, recentCounts, topSkills } from "@/lib/db/stats.repo";
-import { applicationsByStatus, listApplications } from "@/lib/db/applications.repo";
+import {
+  dailySeries,
+  platformTotals,
+  recentCounts,
+  topSkills,
+} from "@/lib/db/stats.repo";
+import {
+  applicationsByStatus,
+  listApplications,
+} from "@/lib/db/applications.repo";
 import { topJobsByApplications } from "@/lib/db/jobs.repo";
 import { recentActivity } from "@/lib/db/activity.repo";
 import { listUsers } from "@/lib/db/users.repo";
@@ -70,7 +78,11 @@ export default async function AdminOverviewPage() {
         }
         actions={
           <>
-            <Button href="/api/admin/export?dataset=users" variant="outline" size="sm">
+            <Button
+              href="/api/admin/export?dataset=users"
+              variant="outline"
+              size="sm"
+            >
               <Download className="size-3.5" aria-hidden="true" />
               Export members
             </Button>
@@ -137,7 +149,11 @@ export default async function AdminOverviewPage() {
                     href={`/admin/users/${member.id}`}
                     className="flex items-center gap-3 px-5 py-3 transition-colors hover:bg-surface-2"
                   >
-                    <Avatar name={member.name} tone={member.avatarTone} size="sm" />
+                    <Avatar
+                      name={member.name}
+                      tone={member.avatarTone}
+                      size="sm"
+                    />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[0.875rem] font-medium text-ink">
                         {member.name}
@@ -154,7 +170,9 @@ export default async function AdminOverviewPage() {
                         joined {formatRelative(member.createdAt)}
                       </span>
                     </span>
-                    {member.role === "ADMIN" ? <Badge tone="mark">admin</Badge> : null}
+                    {member.role === "ADMIN" ? (
+                      <Badge tone="mark">admin</Badge>
+                    ) : null}
                   </Link>
                 </li>
               ))}
@@ -230,7 +248,10 @@ export default async function AdminOverviewPage() {
             />
             <PanelBody>
               <BarList
-                items={skills.map((item) => ({ label: item.skill, value: item.count }))}
+                items={skills.map((item) => ({
+                  label: item.skill,
+                  value: item.count,
+                }))}
                 emptyLabel="No CVs stored yet."
               />
             </PanelBody>
@@ -239,12 +260,24 @@ export default async function AdminOverviewPage() {
           <Panel>
             <PanelHeader title="Platform counters" />
             <PanelBody className="grid gap-2.5 text-[0.8125rem]">
-              <Row label="Active sessions" value={formatNumber(totals.activeSessions)} />
-              <Row label="Suspended accounts" value={formatNumber(totals.suspended)} />
+              <Row
+                label="Active sessions"
+                value={formatNumber(totals.activeSessions)}
+              />
+              <Row
+                label="Suspended accounts"
+                value={formatNumber(totals.suspended)}
+              />
               <Row label="Saved jobs" value={formatNumber(totals.savedJobs)} />
               <Row label="Job views" value={formatNumber(totals.jobViews)} />
-              <Row label="Average match score" value={`${totals.avgMatchScore}%`} />
-              <Row label="Sign-ins this week" value={formatNumber(recent.logins)} />
+              <Row
+                label="Average match score"
+                value={`${totals.avgMatchScore}%`}
+              />
+              <Row
+                label="Sign-ins this week"
+                value={formatNumber(recent.logins)}
+              />
             </PanelBody>
           </Panel>
 
@@ -269,8 +302,11 @@ export default async function AdminOverviewPage() {
                     </span>
                   </div>
                   {entry.summary &&
-                  entry.summary !== (ACTIVITY_LABELS[entry.action] || entry.action) ? (
-                    <p className="mt-0.5 truncate text-[0.6875rem] text-ink-3">{entry.summary}</p>
+                  entry.summary !==
+                    (ACTIVITY_LABELS[entry.action] || entry.action) ? (
+                    <p className="mt-0.5 truncate text-[0.6875rem] text-ink-3">
+                      {entry.summary}
+                    </p>
                   ) : null}
                 </li>
               ))}

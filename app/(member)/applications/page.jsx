@@ -4,7 +4,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ApplicationList } from "./ApplicationList";
 import { requireUser } from "@/lib/auth/session";
-import { applicationsByStatus, listApplications } from "@/lib/db/applications.repo";
+import {
+  applicationsByStatus,
+  listApplications,
+} from "@/lib/db/applications.repo";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Applications" };

@@ -37,7 +37,10 @@ export function SaveJobButton({ jobId, initialSaved = false }) {
     >
       {!pending ? (
         saved ? (
-          <BookmarkCheck className="size-4 text-[var(--mark-deep)]" aria-hidden="true" />
+          <BookmarkCheck
+            className="size-4 text-[var(--mark-deep)]"
+            aria-hidden="true"
+          />
         ) : (
           <Bookmark className="size-4" aria-hidden="true" />
         )

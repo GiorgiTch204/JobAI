@@ -120,7 +120,9 @@ export function JobsManager({ jobs, query }) {
     setPending(job.id);
     try {
       await patch(`/api/jobs/${job.id}`, { status });
-      toast.success(`“${job.title}” is now ${LABELS.jobStatus[status].toLowerCase()}.`);
+      toast.success(
+        `“${job.title}” is now ${LABELS.jobStatus[status].toLowerCase()}.`,
+      );
       router.refresh();
     } catch (error) {
       toast.error(error.message);
@@ -206,18 +208,27 @@ export function JobsManager({ jobs, query }) {
                         {job.title}
                       </span>
                       <span className="block text-[0.6875rem] text-ink-3">
-                        {job.company} · {job.location} · {formatRelative(job.createdAt)}
+                        {job.company} · {job.location} ·{" "}
+                        {formatRelative(job.createdAt)}
                       </span>
                     </button>
                   </Td>
                   <Td className="hidden lg:table-cell">
                     <span className="flex flex-wrap gap-1">
-                      <Badge tone="neutral">{LABELS.workMode[job.workMode]}</Badge>
-                      <Badge tone="muted">{LABELS.seniority[job.seniority]}</Badge>
+                      <Badge tone="neutral">
+                        {LABELS.workMode[job.workMode]}
+                      </Badge>
+                      <Badge tone="muted">
+                        {LABELS.seniority[job.seniority]}
+                      </Badge>
                     </span>
                   </Td>
                   <Td className="tabular hidden whitespace-nowrap text-[0.75rem] md:table-cell">
-                    {formatSalary(job.salaryMin, job.salaryMax, job.salaryCurrency)}
+                    {formatSalary(
+                      job.salaryMin,
+                      job.salaryMax,
+                      job.salaryCurrency,
+                    )}
                   </Td>
                   <Td className="tabular">
                     {job.applicationCount ? (
@@ -280,7 +291,9 @@ export function JobsManager({ jobs, query }) {
       <Modal
         open={Boolean(editing)}
         onClose={() => setEditing(null)}
-        title={editing === "new" ? "New posting" : `Edit “${editing?.title || ""}”`}
+        title={
+          editing === "new" ? "New posting" : `Edit “${editing?.title || ""}”`
+        }
         description="Tags are what the match score reads, so list the real technologies."
         size="lg"
         footer={
@@ -325,7 +338,11 @@ export function JobsManager({ jobs, query }) {
               />
             </Field>
             <Field label="Work mode">
-              <Select name="workMode" value={form.values.workMode} onChange={form.handleChange}>
+              <Select
+                name="workMode"
+                value={form.values.workMode}
+                onChange={form.handleChange}
+              >
                 {WORK_MODES.map((mode) => (
                   <option key={mode} value={mode}>
                     {LABELS.workMode[mode]}
@@ -347,7 +364,11 @@ export function JobsManager({ jobs, query }) {
               </Select>
             </Field>
             <Field label="Seniority">
-              <Select name="seniority" value={form.values.seniority} onChange={form.handleChange}>
+              <Select
+                name="seniority"
+                value={form.values.seniority}
+                onChange={form.handleChange}
+              >
                 {SENIORITIES.map((level) => (
                   <option key={level} value={level}>
                     {LABELS.seniority[level]}
@@ -439,7 +460,11 @@ export function JobsManager({ jobs, query }) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Status">
-              <Select name="status" value={form.values.status} onChange={form.handleChange}>
+              <Select
+                name="status"
+                value={form.values.status}
+                onChange={form.handleChange}
+              >
                 {JOB_STATUSES.map((status) => (
                   <option key={status} value={status}>
                     {LABELS.jobStatus[status]}

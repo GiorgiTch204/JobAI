@@ -24,11 +24,19 @@ export function LoginForm() {
     event.preventDefault();
 
     const user = await form.submit(async () => {
-      return login({ email: form.values.email, password: form.values.password });
+      return login({
+        email: form.values.email,
+        password: form.values.password,
+      });
     });
 
     if (user) {
-      const target = next && next.startsWith("/") ? next : user.role === "ADMIN" ? "/admin" : "/dashboard";
+      const target =
+        next && next.startsWith("/")
+          ? next
+          : user.role === "ADMIN"
+            ? "/admin"
+            : "/dashboard";
       router.replace(target);
       router.refresh();
     }
@@ -51,7 +59,8 @@ export function LoginForm() {
 
       {next ? (
         <Alert tone="info" className="mt-5">
-          Sign in to continue to <span className="font-mono text-[0.75rem]">{next}</span>.
+          Sign in to continue to{" "}
+          <span className="font-mono text-[0.75rem]">{next}</span>.
         </Alert>
       ) : null}
 
@@ -62,7 +71,11 @@ export function LoginForm() {
       ) : null}
 
       <form onSubmit={handleSubmit} className="mt-6 grid gap-4" noValidate>
-        <Field label="Email address" htmlFor="email" error={form.fieldErrors.email}>
+        <Field
+          label="Email address"
+          htmlFor="email"
+          error={form.fieldErrors.email}
+        >
           <Input
             id="email"
             name="email"
@@ -77,7 +90,11 @@ export function LoginForm() {
           />
         </Field>
 
-        <Field label="Password" htmlFor="password" error={form.fieldErrors.password}>
+        <Field
+          label="Password"
+          htmlFor="password"
+          error={form.fieldErrors.password}
+        >
           <div className="relative">
             <Input
               id="password"
@@ -98,14 +115,25 @@ export function LoginForm() {
               className="absolute right-1 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded text-ink-3 transition-colors hover:text-ink-2"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              {showPassword ? (
+                <EyeOff className="size-4" />
+              ) : (
+                <Eye className="size-4" />
+              )}
             </button>
           </div>
         </Field>
 
-        <Button type="submit" size="lg" loading={form.submitting} className="mt-1 w-full">
+        <Button
+          type="submit"
+          size="lg"
+          loading={form.submitting}
+          className="mt-1 w-full"
+        >
           {form.submitting ? "Signing in…" : "Sign in"}
-          {!form.submitting ? <ArrowRight className="size-4" aria-hidden="true" /> : null}
+          {!form.submitting ? (
+            <ArrowRight className="size-4" aria-hidden="true" />
+          ) : null}
         </Button>
       </form>
 

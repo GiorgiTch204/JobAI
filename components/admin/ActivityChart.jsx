@@ -27,7 +27,11 @@ export function ActivityChart({ data }) {
   const titleId = useId();
 
   const max = useMemo(
-    () => Math.max(2, ...data.flatMap((point) => [point.users, point.applications])),
+    () =>
+      Math.max(
+        2,
+        ...data.flatMap((point) => [point.users, point.applications]),
+      ),
     [data],
   );
   const ceiling = Math.ceil(max / 2) * 2;
@@ -36,7 +40,9 @@ export function ActivityChart({ data }) {
     () =>
       data.reduce(
         (best, point) =>
-          point.users + point.applications > best.users + best.applications ? point : best,
+          point.users + point.applications > best.users + best.applications
+            ? point
+            : best,
         data[0] || { users: 0, applications: 0 },
       ),
     [data],
@@ -66,13 +72,22 @@ export function ActivityChart({ data }) {
             </caption>
             <thead className="bg-surface-2">
               <tr>
-                <th scope="col" className="px-3 py-2 text-[0.6875rem] font-semibold text-ink-3">
+                <th
+                  scope="col"
+                  className="px-3 py-2 text-[0.6875rem] font-semibold text-ink-3"
+                >
                   Day
                 </th>
-                <th scope="col" className="px-3 py-2 text-right text-[0.6875rem] font-semibold text-ink-3">
+                <th
+                  scope="col"
+                  className="px-3 py-2 text-right text-[0.6875rem] font-semibold text-ink-3"
+                >
                   New members
                 </th>
-                <th scope="col" className="px-3 py-2 text-right text-[0.6875rem] font-semibold text-ink-3">
+                <th
+                  scope="col"
+                  className="px-3 py-2 text-right text-[0.6875rem] font-semibold text-ink-3"
+                >
                   Applications
                 </th>
               </tr>
@@ -81,8 +96,12 @@ export function ActivityChart({ data }) {
               {data.map((point) => (
                 <tr key={point.day} className="border-t border-rule">
                   <td className="px-3 py-1.5 text-ink-2">{point.label}</td>
-                  <td className="tabular px-3 py-1.5 text-right text-ink">{point.users}</td>
-                  <td className="tabular px-3 py-1.5 text-right text-ink">{point.applications}</td>
+                  <td className="tabular px-3 py-1.5 text-right text-ink">
+                    {point.users}
+                  </td>
+                  <td className="tabular px-3 py-1.5 text-right text-ink">
+                    {point.applications}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -103,7 +122,10 @@ export function ActivityChart({ data }) {
 
       <div className="relative mt-5">
         {/* grid: recessive, two lines only */}
-        <div className="absolute inset-0 flex flex-col justify-between" aria-hidden="true">
+        <div
+          className="absolute inset-0 flex flex-col justify-between"
+          aria-hidden="true"
+        >
           {[ceiling, ceiling / 2, 0].map((value) => (
             <div key={value} className="flex items-center gap-2">
               <span className="tabular w-4 shrink-0 text-right font-mono text-[0.5625rem] text-ink-3">
@@ -155,7 +177,9 @@ export function ActivityChart({ data }) {
                 {/* hover read-out */}
                 {active ? (
                   <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 w-max -translate-x-1/2 rounded-[var(--radius-field)] border border-rule bg-surface px-2.5 py-1.5 shadow-[var(--pop-shadow)]">
-                    <p className="text-[0.6875rem] font-medium text-ink">{point.label}</p>
+                    <p className="text-[0.6875rem] font-medium text-ink">
+                      {point.label}
+                    </p>
                     {SERIES.map((series) => (
                       <p
                         key={series.key}
@@ -187,7 +211,8 @@ export function ActivityChart({ data }) {
       </div>
 
       <p className="mt-3 border-t border-rule pt-2.5 text-[0.75rem] text-ink-3">
-        Busiest day was {busiest.label} with {busiest.users + busiest.applications} events.
+        Busiest day was {busiest.label} with{" "}
+        {busiest.users + busiest.applications} events.
       </p>
     </div>
   );
@@ -202,7 +227,10 @@ function Header({ titleId, totals, asTable, onToggle }) {
         </h3>
         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
           {SERIES.map((series) => (
-            <span key={series.key} className="flex items-center gap-1.5 text-[0.75rem] text-ink-2">
+            <span
+              key={series.key}
+              className="flex items-center gap-1.5 text-[0.75rem] text-ink-2"
+            >
               <span
                 className={cn("size-2.5 rounded-[2px]")}
                 style={{ backgroundColor: series.color }}

@@ -11,7 +11,12 @@ import { cn } from "@/lib/utils";
 export function ResumeSheet({ resume, scale = "full", className }) {
   if (!resume) return null;
 
-  const contact = [resume.email, resume.phone, resume.location, resume.website].filter(Boolean);
+  const contact = [
+    resume.email,
+    resume.phone,
+    resume.location,
+    resume.website,
+  ].filter(Boolean);
   const compact = scale === "compact";
 
   return (
@@ -34,7 +39,12 @@ export function ResumeSheet({ resume, scale = "full", className }) {
           {resume.fullName || "Your name"}
         </h1>
         {resume.headline ? (
-          <p className={cn("mt-1.5 text-ink-2", compact ? "text-[0.6875rem]" : "text-[0.9375rem]")}>
+          <p
+            className={cn(
+              "mt-1.5 text-ink-2",
+              compact ? "text-[0.6875rem]" : "text-[0.9375rem]",
+            )}
+          >
             {resume.headline}
           </p>
         ) : null}
@@ -55,7 +65,9 @@ export function ResumeSheet({ resume, scale = "full", className }) {
 
       {resume.summary ? (
         <Section title="Summary" compact={compact}>
-          <p className="max-w-[72ch] leading-relaxed text-ink-2">{resume.summary}</p>
+          <p className="max-w-[72ch] leading-relaxed text-ink-2">
+            {resume.summary}
+          </p>
         </Section>
       ) : null}
 
@@ -65,7 +77,12 @@ export function ResumeSheet({ resume, scale = "full", className }) {
             {resume.experience.map((role, index) => (
               <div key={role.id || index}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 className={cn("font-semibold", compact ? "text-[0.75rem]" : "text-[0.9375rem]")}>
+                  <h3
+                    className={cn(
+                      "font-semibold",
+                      compact ? "text-[0.75rem]" : "text-[0.9375rem]",
+                    )}
+                  >
                     {role.role || "Role"}
                   </h3>
                   <span
@@ -80,24 +97,38 @@ export function ResumeSheet({ resume, scale = "full", className }) {
                   </span>
                 </div>
 
-                <p className={cn("text-ink-2", compact ? "text-[0.625rem]" : "text-[0.8125rem]")}>
+                <p
+                  className={cn(
+                    "text-ink-2",
+                    compact ? "text-[0.625rem]" : "text-[0.8125rem]",
+                  )}
+                >
                   {[role.company, role.location].filter(Boolean).join(" · ")}
                 </p>
 
                 {role.achievements?.filter(Boolean).length ? (
-                  <ul className={cn("mt-1.5 grid", compact ? "gap-1" : "gap-1.5")}>
-                    {role.achievements.filter(Boolean).map((line, lineIndex) => (
-                      <li key={lineIndex} className="flex gap-2 leading-relaxed text-ink-2">
-                        <span
-                          className={cn(
-                            "shrink-0 rounded-full bg-rule-strong",
-                            compact ? "mt-[0.35rem] size-1" : "mt-[0.45rem] size-1.5",
-                          )}
-                          aria-hidden="true"
-                        />
-                        <span className="max-w-[72ch]">{line}</span>
-                      </li>
-                    ))}
+                  <ul
+                    className={cn("mt-1.5 grid", compact ? "gap-1" : "gap-1.5")}
+                  >
+                    {role.achievements
+                      .filter(Boolean)
+                      .map((line, lineIndex) => (
+                        <li
+                          key={lineIndex}
+                          className="flex gap-2 leading-relaxed text-ink-2"
+                        >
+                          <span
+                            className={cn(
+                              "shrink-0 rounded-full bg-rule-strong",
+                              compact
+                                ? "mt-[0.35rem] size-1"
+                                : "mt-[0.45rem] size-1.5",
+                            )}
+                            aria-hidden="true"
+                          />
+                          <span className="max-w-[72ch]">{line}</span>
+                        </li>
+                      ))}
                   </ul>
                 ) : null}
               </div>
@@ -112,12 +143,20 @@ export function ResumeSheet({ resume, scale = "full", className }) {
             {resume.projects.map((project, index) => (
               <div key={project.id || index}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 className={cn("font-semibold", compact ? "text-[0.75rem]" : "text-[0.9375rem]")}>
+                  <h3
+                    className={cn(
+                      "font-semibold",
+                      compact ? "text-[0.75rem]" : "text-[0.9375rem]",
+                    )}
+                  >
                     {project.name}
                   </h3>
                   {project.url ? (
                     <span
-                      className={cn("text-ink-3", compact ? "text-[0.5625rem]" : "text-[0.6875rem]")}
+                      className={cn(
+                        "text-ink-3",
+                        compact ? "text-[0.5625rem]" : "text-[0.6875rem]",
+                      )}
                     >
                       {project.url.replace(/^https?:\/\//, "")}
                     </span>
@@ -148,13 +187,28 @@ export function ResumeSheet({ resume, scale = "full", className }) {
         <Section title="Education" compact={compact}>
           <div className="grid gap-2.5">
             {resume.education.map((item, index) => (
-              <div key={item.id || index} className="flex flex-wrap items-baseline justify-between gap-x-3">
+              <div
+                key={item.id || index}
+                className="flex flex-wrap items-baseline justify-between gap-x-3"
+              >
                 <div>
-                  <h3 className={cn("font-semibold", compact ? "text-[0.75rem]" : "text-[0.9375rem]")}>
+                  <h3
+                    className={cn(
+                      "font-semibold",
+                      compact ? "text-[0.75rem]" : "text-[0.9375rem]",
+                    )}
+                  >
                     {item.degree}
                   </h3>
-                  <p className={cn("text-ink-2", compact ? "text-[0.625rem]" : "text-[0.8125rem]")}>
-                    {[item.school, item.location, item.grade].filter(Boolean).join(" · ")}
+                  <p
+                    className={cn(
+                      "text-ink-2",
+                      compact ? "text-[0.625rem]" : "text-[0.8125rem]",
+                    )}
+                  >
+                    {[item.school, item.location, item.grade]
+                      .filter(Boolean)
+                      .join(" · ")}
                   </p>
                 </div>
                 <span
@@ -173,7 +227,9 @@ export function ResumeSheet({ resume, scale = "full", className }) {
 
       {resume.skills?.length ? (
         <Section title="Skills" compact={compact}>
-          <p className="leading-relaxed text-ink-2">{resume.skills.join(" · ")}</p>
+          <p className="leading-relaxed text-ink-2">
+            {resume.skills.join(" · ")}
+          </p>
         </Section>
       ) : null}
 
@@ -184,7 +240,9 @@ export function ResumeSheet({ resume, scale = "full", className }) {
               <ul className="grid gap-1">
                 {resume.certifications.map((item, index) => (
                   <li key={item.id || index} className="text-ink-2">
-                    {[item.name, item.issuer, item.year].filter(Boolean).join(" · ")}
+                    {[item.name, item.issuer, item.year]
+                      .filter(Boolean)
+                      .join(" · ")}
                   </li>
                 ))}
               </ul>

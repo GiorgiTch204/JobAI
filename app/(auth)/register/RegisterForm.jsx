@@ -3,7 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, Check, Eye, EyeOff, Lock, Mail, UserRound } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  UserRound,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Checkbox, Field, Input } from "@/components/ui/Field";
@@ -25,14 +33,21 @@ export function RegisterForm() {
   const { register } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
-  const form = useFormState({ name: "", email: "", password: "", acceptedTerms: false });
+  const form = useFormState({
+    name: "",
+    email: "",
+    password: "",
+    acceptedTerms: false,
+  });
   const { checks } = passwordStrength(form.values.password);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!form.values.acceptedTerms) {
-      form.setFieldErrors({ acceptedTerms: "Please accept the terms to continue." });
+      form.setFieldErrors({
+        acceptedTerms: "Please accept the terms to continue.",
+      });
       form.setError("Please accept the terms to continue.");
       return;
     }
@@ -89,7 +104,11 @@ export function RegisterForm() {
           />
         </Field>
 
-        <Field label="Email address" htmlFor="email" error={form.fieldErrors.email}>
+        <Field
+          label="Email address"
+          htmlFor="email"
+          error={form.fieldErrors.email}
+        >
           <Input
             id="email"
             name="email"
@@ -104,7 +123,11 @@ export function RegisterForm() {
           />
         </Field>
 
-        <Field label="Password" htmlFor="password" error={form.fieldErrors.password}>
+        <Field
+          label="Password"
+          htmlFor="password"
+          error={form.fieldErrors.password}
+        >
           <div className="relative">
             <Input
               id="password"
@@ -125,7 +148,11 @@ export function RegisterForm() {
               className="absolute right-1 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded text-ink-3 transition-colors hover:text-ink-2"
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+              {showPassword ? (
+                <EyeOff className="size-4" />
+              ) : (
+                <Eye className="size-4" />
+              )}
             </button>
           </div>
 
@@ -133,7 +160,10 @@ export function RegisterForm() {
             {RULES.map((rule) => {
               const met = checks[rule.key];
               return (
-                <li key={rule.key} className="flex items-center gap-1.5 text-[0.6875rem]">
+                <li
+                  key={rule.key}
+                  className="flex items-center gap-1.5 text-[0.6875rem]"
+                >
                   <span
                     className={cn(
                       "grid size-3.5 place-items-center rounded-full transition-colors",
@@ -142,7 +172,9 @@ export function RegisterForm() {
                   >
                     <Check className="size-2.5" aria-hidden="true" />
                   </span>
-                  <span className={met ? "text-ink-2" : "text-ink-3"}>{rule.label}</span>
+                  <span className={met ? "text-ink-2" : "text-ink-3"}>
+                    {rule.label}
+                  </span>
                 </li>
               );
             })}
@@ -157,15 +189,22 @@ export function RegisterForm() {
           className="mt-1"
         />
 
-        <Button type="submit" size="lg" loading={form.submitting} className="mt-1 w-full">
+        <Button
+          type="submit"
+          size="lg"
+          loading={form.submitting}
+          className="mt-1 w-full"
+        >
           {form.submitting ? "Creating your account…" : "Create account"}
-          {!form.submitting ? <ArrowRight className="size-4" aria-hidden="true" /> : null}
+          {!form.submitting ? (
+            <ArrowRight className="size-4" aria-hidden="true" />
+          ) : null}
         </Button>
       </form>
 
       <p className="mt-6 text-[0.75rem] leading-relaxed text-ink-3">
-        Your CV and your scores stay in this application's own database. Nothing is sent to a third
-        party for scoring.
+        Your CV and your scores stay in this application's own database. Nothing
+        is sent to a third party for scoring.
       </p>
     </div>
   );

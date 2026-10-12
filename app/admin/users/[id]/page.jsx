@@ -31,7 +31,8 @@ export default async function AdminUserDetailPage({ params }) {
   const dossier = getUserDossier(id);
   if (!dossier) notFound();
 
-  const { user, resumes, applications, savedJobs, sessions, activity } = dossier;
+  const { user, resumes, applications, savedJobs, sessions, activity } =
+    dossier;
   const bestAts = Math.max(0, ...resumes.map((item) => item.atsScore));
   const activeSessions = sessions.filter((session) => session.active).length;
 
@@ -44,11 +45,19 @@ export default async function AdminUserDetailPage({ params }) {
     { label: "Website", value: user.website || "—", mono: true },
     { label: "Role", value: LABELS.role[user.role] },
     { label: "Status", value: LABELS.userStatus[user.status] },
-    { label: "Registered", value: formatDate(user.createdAt, { withTime: true }) },
-    { label: "Last updated", value: formatDate(user.updatedAt, { withTime: true }) },
+    {
+      label: "Registered",
+      value: formatDate(user.createdAt, { withTime: true }),
+    },
+    {
+      label: "Last updated",
+      value: formatDate(user.updatedAt, { withTime: true }),
+    },
     {
       label: "Last sign-in",
-      value: user.lastLoginAt ? formatDate(user.lastLoginAt, { withTime: true }) : "never",
+      value: user.lastLoginAt
+        ? formatDate(user.lastLoginAt, { withTime: true })
+        : "never",
     },
     { label: "Total sign-ins", value: String(user.loginCount) },
   ];
@@ -70,7 +79,9 @@ export default async function AdminUserDetailPage({ params }) {
             <h1 className="font-display text-[1.5rem] leading-tight tracking-tight text-ink">
               {user.name}
             </h1>
-            <p className="mt-1 font-mono text-[0.75rem] text-ink-3">{user.email}</p>
+            <p className="mt-1 font-mono text-[0.75rem] text-ink-3">
+              {user.email}
+            </p>
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
               <Badge tone={user.role === "ADMIN" ? "mark" : "neutral"}>
                 {LABELS.role[user.role]}
@@ -78,7 +89,9 @@ export default async function AdminUserDetailPage({ params }) {
               <Badge tone={user.status === "ACTIVE" ? "positive" : "danger"}>
                 {LABELS.userStatus[user.status]}
               </Badge>
-              {user.location ? <Badge tone="muted">{user.location}</Badge> : null}
+              {user.location ? (
+                <Badge tone="muted">{user.location}</Badge>
+              ) : null}
             </div>
           </div>
         </div>
@@ -135,7 +148,9 @@ export default async function AdminUserDetailPage({ params }) {
               {user.bio ? (
                 <div className="mt-4 border-t border-rule pt-3">
                   <p className="text-[0.75rem] text-ink-3">About</p>
-                  <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-2">{user.bio}</p>
+                  <p className="mt-1 text-[0.8125rem] leading-relaxed text-ink-2">
+                    {user.bio}
+                  </p>
                 </div>
               ) : null}
             </PanelBody>
@@ -159,15 +174,17 @@ export default async function AdminUserDetailPage({ params }) {
                       </Badge>
                     </div>
                     <p className="mt-0.5 truncate font-mono text-[0.625rem] text-ink-3">
-                      {session.ip} · started {formatRelative(session.createdAt)} · last seen{" "}
-                      {formatRelative(session.lastSeenAt)}
+                      {session.ip} · started {formatRelative(session.createdAt)}{" "}
+                      · last seen {formatRelative(session.lastSeenAt)}
                     </p>
                   </li>
                 ))}
               </ul>
             ) : (
               <PanelBody>
-                <p className="text-[0.8125rem] text-ink-3">No sessions recorded.</p>
+                <p className="text-[0.8125rem] text-ink-3">
+                  No sessions recorded.
+                </p>
               </PanelBody>
             )}
           </Panel>
@@ -177,7 +194,10 @@ export default async function AdminUserDetailPage({ params }) {
             {savedJobs.length ? (
               <ul className="divide-y divide-[var(--rule)]">
                 {savedJobs.map((job) => (
-                  <li key={job.id} className="flex items-center justify-between gap-3 px-5 py-2.5">
+                  <li
+                    key={job.id}
+                    className="flex items-center justify-between gap-3 px-5 py-2.5"
+                  >
                     <Link
                       href={`/jobs/${job.id}`}
                       className="min-w-0 truncate text-[0.8125rem] text-ink hover:underline"
@@ -220,7 +240,9 @@ export default async function AdminUserDetailPage({ params }) {
                           <span className="text-[0.875rem] font-medium text-ink">
                             {resume.title}
                           </span>
-                          {resume.isPrimary ? <Badge tone="mark">primary</Badge> : null}
+                          {resume.isPrimary ? (
+                            <Badge tone="mark">primary</Badge>
+                          ) : null}
                           <Badge tone="muted">{resume.source}</Badge>
                         </span>
                         <span className="tabular font-mono text-[0.6875rem] text-ink-2">
@@ -260,7 +282,9 @@ export default async function AdminUserDetailPage({ params }) {
               </ul>
             ) : (
               <PanelBody>
-                <p className="text-[0.8125rem] text-ink-3">No CV stored for this account.</p>
+                <p className="text-[0.8125rem] text-ink-3">
+                  No CV stored for this account.
+                </p>
               </PanelBody>
             )}
           </Panel>
@@ -290,14 +314,18 @@ export default async function AdminUserDetailPage({ params }) {
                       <span>match {application.matchScore}%</span>
                       <span>ats {application.atsScore}</span>
                       <span>sent {formatDate(application.createdAt)}</span>
-                      <span>updated {formatRelative(application.updatedAt)}</span>
+                      <span>
+                        updated {formatRelative(application.updatedAt)}
+                      </span>
                     </p>
                   </li>
                 ))}
               </ul>
             ) : (
               <PanelBody>
-                <p className="text-[0.8125rem] text-ink-3">No applications sent.</p>
+                <p className="text-[0.8125rem] text-ink-3">
+                  No applications sent.
+                </p>
               </PanelBody>
             )}
           </Panel>
@@ -320,7 +348,8 @@ export default async function AdminUserDetailPage({ params }) {
                       </span>
                     </div>
                     {entry.summary &&
-                    entry.summary !== (ACTIVITY_LABELS[entry.action] || entry.action) ? (
+                    entry.summary !==
+                      (ACTIVITY_LABELS[entry.action] || entry.action) ? (
                       <p className="mt-0.5 text-[0.75rem] leading-relaxed text-ink-3">
                         {entry.summary}
                       </p>

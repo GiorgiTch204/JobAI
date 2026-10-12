@@ -2,7 +2,12 @@
 
 import { Check } from "lucide-react";
 
-import { Panel, PanelBody, PanelFooter, PanelHeader } from "@/components/ui/Panel";
+import {
+  Panel,
+  PanelBody,
+  PanelFooter,
+  PanelHeader,
+} from "@/components/ui/Panel";
 import { Button } from "@/components/ui/Button";
 import { Field, Input } from "@/components/ui/Field";
 import { Alert } from "@/components/ui/Alert";
@@ -63,7 +68,11 @@ export function PasswordForm() {
           />
         </Field>
 
-        <Field label="New password" htmlFor="newPassword" error={form.fieldErrors.newPassword}>
+        <Field
+          label="New password"
+          htmlFor="newPassword"
+          error={form.fieldErrors.newPassword}
+        >
           <Input
             id="newPassword"
             name="newPassword"
@@ -78,7 +87,10 @@ export function PasswordForm() {
             {RULES.map((rule) => {
               const met = checks[rule.key];
               return (
-                <li key={rule.key} className="flex items-center gap-1.5 text-[0.6875rem]">
+                <li
+                  key={rule.key}
+                  className="flex items-center gap-1.5 text-[0.6875rem]"
+                >
                   <span
                     className={cn(
                       "grid size-3.5 place-items-center rounded-full",
@@ -87,7 +99,9 @@ export function PasswordForm() {
                   >
                     <Check className="size-2.5" aria-hidden="true" />
                   </span>
-                  <span className={met ? "text-ink-2" : "text-ink-3"}>{rule.label}</span>
+                  <span className={met ? "text-ink-2" : "text-ink-3"}>
+                    {rule.label}
+                  </span>
                 </li>
               );
             })}
@@ -95,7 +109,9 @@ export function PasswordForm() {
         </Field>
       </PanelBody>
       <PanelFooter>
-        <p className="text-[0.75rem] text-ink-3">You stay signed in on this device.</p>
+        <p className="text-[0.75rem] text-ink-3">
+          You stay signed in on this device.
+        </p>
         <Button type="submit" size="sm" loading={form.submitting}>
           Change password
         </Button>

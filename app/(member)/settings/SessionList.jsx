@@ -21,7 +21,9 @@ export function SessionList({ sessions }) {
   const revoke = async (id) => {
     setPending(id);
     try {
-      const data = await del(id === "all" ? "/api/auth/sessions" : `/api/auth/sessions/${id}`);
+      const data = await del(
+        id === "all" ? "/api/auth/sessions" : `/api/auth/sessions/${id}`,
+      );
       toast.success(data.message);
       router.refresh();
     } catch (error) {
@@ -86,7 +88,8 @@ export function SessionList({ sessions }) {
       </ul>
       <PanelBody className="border-t border-rule">
         <p className="text-[0.75rem] leading-relaxed text-ink-3">
-          Signing out a device revokes its session immediately, even if its cookie has not expired.
+          Signing out a device revokes its session immediately, even if its
+          cookie has not expired.
         </p>
       </PanelBody>
     </Panel>

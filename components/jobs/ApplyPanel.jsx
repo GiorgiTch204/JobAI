@@ -21,7 +21,9 @@ export function ApplyPanel({ job, resumes, application, signedIn }) {
   const router = useRouter();
   const toast = useToast();
   const [open, setOpen] = useState(false);
-  const [resumeId, setResumeId] = useState(resumes.find((item) => item.isPrimary)?.id || resumes[0]?.id || "");
+  const [resumeId, setResumeId] = useState(
+    resumes.find((item) => item.isPrimary)?.id || resumes[0]?.id || "",
+  );
   const [coverLetter, setCoverLetter] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -29,7 +31,11 @@ export function ApplyPanel({ job, resumes, application, signedIn }) {
   if (!signedIn) {
     return (
       <div className="grid gap-2.5">
-        <Button href={`/login?next=/jobs/${job.id}`} size="lg" className="w-full">
+        <Button
+          href={`/login?next=/jobs/${job.id}`}
+          size="lg"
+          className="w-full"
+        >
           Sign in to apply
         </Button>
         <p className="text-center text-[0.75rem] text-ink-3">
@@ -48,7 +54,8 @@ export function ApplyPanel({ job, resumes, application, signedIn }) {
           <StatusBadge value={application.status} className="ml-auto" />
         </div>
         <p className="text-[0.75rem] text-ink-3">
-          Sent {formatDate(application.createdAt)} with a {application.matchScore}% keyword match.
+          Sent {formatDate(application.createdAt)} with a{" "}
+          {application.matchScore}% keyword match.
         </p>
         <Button href="/applications" variant="outline" size="sm">
           Track this application
@@ -87,7 +94,10 @@ export function ApplyPanel({ job, resumes, application, signedIn }) {
     setSubmitting(true);
     setError("");
     try {
-      const data = await post(`/api/jobs/${job.id}/apply`, { resumeId, coverLetter });
+      const data = await post(`/api/jobs/${job.id}/apply`, {
+        resumeId,
+        coverLetter,
+      });
       setOpen(false);
       toast.success(data.message);
       router.refresh();
@@ -136,7 +146,11 @@ export function ApplyPanel({ job, resumes, application, signedIn }) {
             htmlFor="resume"
             hint={`${resumes.length} saved`}
           >
-            <Select id="resume" value={resumeId} onChange={(event) => setResumeId(event.target.value)}>
+            <Select
+              id="resume"
+              value={resumeId}
+              onChange={(event) => setResumeId(event.target.value)}
+            >
               {resumes.map((resume) => (
                 <option key={resume.id} value={resume.id}>
                   {resume.title} — ATS {resume.atsScore}
@@ -146,11 +160,7 @@ export function ApplyPanel({ job, resumes, application, signedIn }) {
             </Select>
           </Field>
 
-          <Field
-            label="Anything to add?"
-            htmlFor="cover"
-            hint="Optional"
-          >
+          <Field label="Anything to add?" htmlFor="cover" hint="Optional">
             <Textarea
               id="cover"
               rows={6}
@@ -162,8 +172,8 @@ export function ApplyPanel({ job, resumes, application, signedIn }) {
           </Field>
 
           <p className="text-[0.75rem] leading-relaxed text-ink-3">
-            A copy of the CV is stored with the application, so later edits to your CV will not
-            change what this company sees.
+            A copy of the CV is stored with the application, so later edits to
+            your CV will not change what this company sees.
           </p>
         </div>
       </Modal>

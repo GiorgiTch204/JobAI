@@ -20,7 +20,15 @@ import { del, patch } from "@/lib/client-api";
 import { LABELS } from "@/lib/constants";
 import { formatDate, formatRelative } from "@/lib/utils";
 
-export function UsersTable({ users, total, page, pages, perPage, currentUserId, query }) {
+export function UsersTable({
+  users,
+  total,
+  page,
+  pages,
+  perPage,
+  currentUserId,
+  query,
+}) {
   const router = useRouter();
   const params = useSearchParams();
   const toast = useToast();
@@ -123,7 +131,11 @@ export function UsersTable({ users, total, page, pages, perPage, currentUserId, 
           icon={UserRound}
           title="No members match that"
           description="Try a different search term, or clear the filters."
-          action={{ label: "Clear filters", href: "/admin/users", variant: "outline" }}
+          action={{
+            label: "Clear filters",
+            href: "/admin/users",
+            variant: "outline",
+          }}
         />
       ) : (
         <>
@@ -149,8 +161,15 @@ export function UsersTable({ users, total, page, pages, perPage, currentUserId, 
                   return (
                     <Tr key={member.id}>
                       <Td>
-                        <Link href={`/admin/users/${member.id}`} className="flex items-center gap-2.5">
-                          <Avatar name={member.name} tone={member.avatarTone} size="sm" />
+                        <Link
+                          href={`/admin/users/${member.id}`}
+                          className="flex items-center gap-2.5"
+                        >
+                          <Avatar
+                            name={member.name}
+                            tone={member.avatarTone}
+                            size="sm"
+                          />
                           <span className="min-w-0">
                             <span className="flex items-center gap-1.5">
                               <span className="truncate text-[0.8125rem] font-medium text-ink">
@@ -168,17 +187,23 @@ export function UsersTable({ users, total, page, pages, perPage, currentUserId, 
                         </Link>
                       </Td>
                       <Td className="hidden md:table-cell">
-                        <Badge tone={member.role === "ADMIN" ? "mark" : "neutral"}>
+                        <Badge
+                          tone={member.role === "ADMIN" ? "mark" : "neutral"}
+                        >
                           {LABELS.role[member.role]}
                         </Badge>
                       </Td>
-                      <Td className="tabular hidden lg:table-cell">{member.resumeCount}</Td>
+                      <Td className="tabular hidden lg:table-cell">
+                        {member.resumeCount}
+                      </Td>
                       <Td className="tabular hidden lg:table-cell">
                         {member.bestAtsScore || "—"}
                       </Td>
                       <Td className="tabular">{member.applicationCount}</Td>
                       <Td className="hidden whitespace-nowrap text-[0.75rem] xl:table-cell">
-                        {member.lastLoginAt ? formatRelative(member.lastLoginAt) : "never"}
+                        {member.lastLoginAt
+                          ? formatRelative(member.lastLoginAt)
+                          : "never"}
                       </Td>
                       <Td className="hidden whitespace-nowrap text-[0.75rem] sm:table-cell">
                         {formatDate(member.createdAt)}
@@ -191,10 +216,16 @@ export function UsersTable({ users, total, page, pages, perPage, currentUserId, 
                               size="icon-sm"
                               disabled={self || busy}
                               onClick={() =>
-                                mutate(member.id, { status: "SUSPENDED" }, `${member.name} suspended.`)
+                                mutate(
+                                  member.id,
+                                  { status: "SUSPENDED" },
+                                  `${member.name} suspended.`,
+                                )
                               }
                               aria-label={`Suspend ${member.name}`}
-                              title={self ? "You cannot suspend yourself" : "Suspend"}
+                              title={
+                                self ? "You cannot suspend yourself" : "Suspend"
+                              }
                             >
                               <Ban className="size-4" />
                             </Button>
@@ -204,7 +235,11 @@ export function UsersTable({ users, total, page, pages, perPage, currentUserId, 
                               size="icon-sm"
                               disabled={busy}
                               onClick={() =>
-                                mutate(member.id, { status: "ACTIVE" }, `${member.name} reactivated.`)
+                                mutate(
+                                  member.id,
+                                  { status: "ACTIVE" },
+                                  `${member.name} reactivated.`,
+                                )
                               }
                               aria-label={`Reactivate ${member.name}`}
                               title="Reactivate"
@@ -219,7 +254,9 @@ export function UsersTable({ users, total, page, pages, perPage, currentUserId, 
                             disabled={self || busy}
                             onClick={() => setConfirmDelete(member)}
                             aria-label={`Delete ${member.name}`}
-                            title={self ? "You cannot delete yourself" : "Delete"}
+                            title={
+                              self ? "You cannot delete yourself" : "Delete"
+                            }
                           >
                             <Trash2 className="size-4" />
                           </Button>

@@ -8,7 +8,10 @@ export default async function AdminLayout({ children }) {
 
   const groups = [
     ...ADMIN_NAV,
-    { label: "Your account", items: MEMBER_NAV[0].items.slice(0, 1).concat(MEMBER_NAV[2].items) },
+    {
+      label: "Your account",
+      items: MEMBER_NAV[0].items.slice(0, 1).concat(MEMBER_NAV[2].items),
+    },
   ];
 
   return (

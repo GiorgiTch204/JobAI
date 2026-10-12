@@ -30,7 +30,10 @@ export function AtsReport({ report, wordsLabel = true }) {
               <div className="flex items-baseline justify-between gap-3">
                 <dt className="flex items-center gap-1.5 text-[0.8125rem] text-ink">
                   {full ? (
-                    <CircleCheck className="size-3.5 text-positive" aria-hidden="true" />
+                    <CircleCheck
+                      className="size-3.5 text-positive"
+                      aria-hidden="true"
+                    />
                   ) : null}
                   {check.label}
                 </dt>
@@ -46,7 +49,9 @@ export function AtsReport({ report, wordsLabel = true }) {
                 className="mt-1.5"
               />
               {!full ? (
-                <p className="mt-1.5 text-[0.75rem] leading-relaxed text-ink-3">{check.detail}</p>
+                <p className="mt-1.5 text-[0.75rem] leading-relaxed text-ink-3">
+                  {check.detail}
+                </p>
               ) : null}
             </div>
           );

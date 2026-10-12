@@ -30,13 +30,20 @@ export default async function AdminJobsPage({ searchParams }) {
         title="Job postings"
         description={`${totals.jobs} postings — ${totals.openJobs} open. Publishing one makes it visible on the public job board immediately.`}
         actions={
-          <Button href="/api/admin/export?dataset=jobs" variant="outline" size="sm">
+          <Button
+            href="/api/admin/export?dataset=jobs"
+            variant="outline"
+            size="sm"
+          >
             <Download className="size-3.5" aria-hidden="true" />
             Export CSV
           </Button>
         }
       />
-      <JobsManager jobs={rows} query={{ status: params?.status || "", search: params?.search || "" }} />
+      <JobsManager
+        jobs={rows}
+        query={{ status: params?.status || "", search: params?.search || "" }}
+      />
     </>
   );
 }

@@ -29,14 +29,17 @@ export function Footer() {
         <div className="max-w-sm">
           <Logo />
           <p className="mt-3 text-[0.8125rem] leading-relaxed text-ink-3">
-            JobAI reads your CV the way an applicant tracking system does, scores what it finds,
-            and shows which keywords a job post wants that your CV does not mention yet.
+            JobAI reads your CV the way an applicant tracking system does,
+            scores what it finds, and shows which keywords a job post wants that
+            your CV does not mention yet.
           </p>
         </div>
 
         {COLUMNS.map((column) => (
           <div key={column.title}>
-            <h2 className="text-[0.8125rem] font-semibold text-ink">{column.title}</h2>
+            <h2 className="text-[0.8125rem] font-semibold text-ink">
+              {column.title}
+            </h2>
             <ul className="mt-3 grid gap-2">
               {column.links.map((link) => (
                 <li key={link.href}>
